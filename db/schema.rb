@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170827035958) do
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "full_name", limit: 50, null: false
     t.string "email", limit: 50, null: false
-    t.string "phone", limit: 15, null: false
+    t.string "phone", limit: 10, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
