@@ -6,6 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# ___ METHODS ___
+
+def get_random_record_id(model)
+  model.limit(1).order("RAND()").first.id
+end
+
+
+# ___ SEEDS ___
+
 # === USERS ===
 
 User.create(username: 'admin', email: 'tom@ohhhh.me', password: 'qwerty')
@@ -105,3 +114,35 @@ barbers_num.times do |i|
   end
 end
 
+
+# === TESTIMONIALS ===
+
+20.times do
+
+  order_date = Faker::Time.between(14.days.ago, 5.days.ago)
+  service_date = Date.parse((order_date + 3.days).to_s)
+  testimonial_date = order_date + 4.days
+
+
+  order = Order.create(client_id: Client.limit(1).order("RAND()").first.id,
+                      service_id: Service.limit(1).order("RAND()").first.id,
+                      status: 'paid',
+                      created_at: order_date,
+                      updated_at: order_date
+  )
+
+  Shift.create(date: service_date,
+               time: '17:00:00',
+               barber_id: get_random_record_id(Barber),
+               is_free: false,
+               order_id: order.id
+  )
+
+  Testimonial.create(client_id: order.client_id,
+                 order_id:order.id,
+                 body: Faker::Hipster.paragraph(1),
+                 grade: rand(5) + 1,
+                 created_at: testimonial_date,
+                 updated_at: testimonial_date
+  )
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170827035958) do
+ActiveRecord::Schema.define(version: 20170828053457) do
 
   create_table "barbers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "first_name", limit: 30, null: false
@@ -57,6 +57,17 @@ ActiveRecord::Schema.define(version: 20170827035958) do
     t.index ["order_id"], name: "index_shifts_on_order_id", unique: true
   end
 
+  create_table "testimonials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "client_id", null: false
+    t.bigint "order_id", null: false
+    t.text "body", null: false
+    t.integer "grade", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id", "order_id"], name: "index_testimonials_on_client_id_and_order_id"
+    t.index ["order_id"], name: "fk_rails_8091e961df"
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "username", limit: 30, null: false
     t.string "email", default: "", null: false
@@ -70,4 +81,6 @@ ActiveRecord::Schema.define(version: 20170827035958) do
   add_foreign_key "orders", "services"
   add_foreign_key "shifts", "barbers"
   add_foreign_key "shifts", "orders"
+  add_foreign_key "testimonials", "clients"
+  add_foreign_key "testimonials", "orders"
 end
