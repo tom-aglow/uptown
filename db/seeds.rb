@@ -6,14 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# ___ METHODS ___
+# ::: METHODS :::
 
 def get_random_record_id(model)
   model.limit(1).order("RAND()").first.id
 end
 
 
-# ___ SEEDS ___
+# ::: SEEDS :::
 
 # === USERS ===
 
@@ -119,27 +119,28 @@ end
 
 20.times do
 
+  # setting up parameters
   order_date = Faker::Time.between(14.days.ago, 5.days.ago)
   service_date = Date.parse((order_date + 3.days).to_s)
+  service_time = rand(10...19).to_s + ':00:00'
+  barber_id_rand = get_random_record_id(Barber)
   testimonial_date = order_date + 4.days
 
-
-  order = Order.create(client_id: Client.limit(1).order("RAND()").first.id,
-                      service_id: Service.limit(1).order("RAND()").first.id,
+  # creating an order record
+  order_record = Order.create(client_id: get_random_record_id(Client),
+                      service_id: get_random_record_id(Service),
                       status: 'paid',
                       created_at: order_date,
                       updated_at: order_date
   )
 
-  Shift.create(date: service_date,
-               time: '17:00:00',
-               barber_id: get_random_record_id(Barber),
-               is_free: false,
-               order_id: order.id
-  )
+  # creating or updating shift record
+  shift_record = Shift.find_or_initialize_by(date: service_date, time: service_time, barber_id: barber_id_rand)
+  shift_record.update_attributes(is_free: false, order_id: order_record.id)
 
-  Testimonial.create(client_id: order.client_id,
-                 order_id:order.id,
+  # creating testimonial record
+  Testimonial.create(client_id: order_record.client_id,
+                 order_id:order_record.id,
                  body: Faker::Hipster.paragraph(1),
                  grade: rand(5) + 1,
                  created_at: testimonial_date,

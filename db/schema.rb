@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828053457) do
+ActiveRecord::Schema.define(version: 20170828173220) do
 
   create_table "barbers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "first_name", limit: 30, null: false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20170828053457) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["barber_id"], name: "index_shifts_on_barber_id"
+    t.index ["date", "time", "barber_id"], name: "index_shifts_on_date_and_time_and_barber_id", unique: true
     t.index ["order_id"], name: "index_shifts_on_order_id", unique: true
   end
 
