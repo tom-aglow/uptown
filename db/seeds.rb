@@ -103,14 +103,15 @@ barbers_num.times do |i|
 
     order_date = Time.parse(shift_record.date.to_s)
 
-    order = Order.create(client_id: 1 + rand(19),
+    order_record = Order.create(client_id: 1 + rand(19),
                          service_id: 1 + rand(6),
+                         shift_id: shift_record.id,
                          status: 'booked',
                          created_at: order_date,
                          updated_at: order_date
     )
 
-    shift_record.update(order_id: order.id, is_free: false)
+    shift_record.update_attributes(is_free: false)
   end
 end
 
@@ -126,21 +127,21 @@ end
   barber_id_rand = get_random_record_id(Barber)
   testimonial_date = order_date + 4.days
 
+  # creating or updating shift record
+  shift_record = Shift.find_or_initialize_by(date: service_date, time: service_time, barber_id: barber_id_rand)
+  shift_record.update_attributes(is_free: false)
+
   # creating an order record
   order_record = Order.create(client_id: get_random_record_id(Client),
                       service_id: get_random_record_id(Service),
+                      shift_id: shift_record.id,
                       status: 'paid',
                       created_at: order_date,
                       updated_at: order_date
   )
 
-  # creating or updating shift record
-  shift_record = Shift.find_or_initialize_by(date: service_date, time: service_time, barber_id: barber_id_rand)
-  shift_record.update_attributes(is_free: false, order_id: order_record.id)
-
   # creating testimonial record
-  Testimonial.create(client_id: order_record.client_id,
-                 order_id:order_record.id,
+  Testimonial.create(order_id:order_record.id,
                  body: Faker::Hipster.paragraph(1),
                  grade: rand(5) + 1,
                  created_at: testimonial_date,

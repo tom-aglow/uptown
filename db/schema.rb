@@ -31,11 +31,13 @@ ActiveRecord::Schema.define(version: 20170828173220) do
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "client_id", null: false
     t.bigint "service_id", null: false
+    t.bigint "shift_id", null: false
     t.string "status", limit: 20, default: "new", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id", "service_id"], name: "index_orders_on_client_id_and_service_id"
+    t.index ["client_id"], name: "fk_rails_5c8e53c896"
     t.index ["service_id"], name: "fk_rails_4d159e34c4"
+    t.index ["shift_id", "client_id", "service_id"], name: "index_orders_on_shift_id_and_client_id_and_service_id"
   end
 
   create_table "services", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -50,23 +52,19 @@ ActiveRecord::Schema.define(version: 20170828173220) do
     t.time "time", null: false
     t.bigint "barber_id", null: false
     t.boolean "is_free", default: true, null: false
-    t.bigint "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["barber_id"], name: "index_shifts_on_barber_id"
     t.index ["date", "time", "barber_id"], name: "index_shifts_on_date_and_time_and_barber_id", unique: true
-    t.index ["order_id"], name: "index_shifts_on_order_id", unique: true
   end
 
   create_table "testimonials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "client_id", null: false
     t.bigint "order_id", null: false
     t.text "body", null: false
     t.integer "grade", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id", "order_id"], name: "index_testimonials_on_client_id_and_order_id"
-    t.index ["order_id"], name: "fk_rails_8091e961df"
+    t.index ["order_id"], name: "index_testimonials_on_order_id", unique: true
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -80,8 +78,7 @@ ActiveRecord::Schema.define(version: 20170828173220) do
 
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "services"
+  add_foreign_key "orders", "shifts"
   add_foreign_key "shifts", "barbers"
-  add_foreign_key "shifts", "orders"
-  add_foreign_key "testimonials", "clients"
   add_foreign_key "testimonials", "orders"
 end
