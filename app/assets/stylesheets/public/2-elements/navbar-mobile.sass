@@ -1,0 +1,83 @@
+.navbar-mobile
+  @media screen and (max-width: 1050px)
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: space-around
+    height: 400px
+
+  @media screen and (max-width: 770px)
+    height: calc(100vh - 85px)
+  @media screen and (max-width: 500px)
+    height: calc(100vh - 70px)
+
+  .nav
+    display: flex
+    flex-direction: column
+    justify-content: center
+    text-align: center
+
+  .nav-link
+    margin-bottom: 20px
+    &:hover
+      &:after
+        @include pseudo-element(40px, 4px, 100%, calc(50% - 20px))
+
+
+  transform: translateY(-200%)
+  transition: all 1s
+
+  &.is-open
+    transform: translateY(85px)
+    @media screen and (max-width: 500px)
+      transform: translateY(70px)
+
+  .page-header__btn
+    display: none
+    @media screen and (max-width: 500px)
+      display: block
+
+
+.navbar-mobile-toggle
+  display: none
+  @media screen and (max-width: 1050px)
+    display: flex
+  width: 30px
+  height: 30px
+  align-items: center
+  cursor: pointer
+  z-index: 5
+
+  span,
+  span:before,
+  span:after
+    content: ""
+    display: block
+    width: 100%
+    height: 4px
+    background-color: $color-grey-tone-1
+    position: relative
+    transition: all 0.3s ease-in-out
+    left: 15px
+
+  span:before
+    top: 11px
+    left: 0
+
+  span:after
+    top: -14px
+    left: 0
+
+  &.is-open
+    span
+      background: transparent
+
+    span:before,
+    span:after
+      transform-origin: center
+      transform: rotate(45deg)
+      top: 0
+
+    span:after
+      transform: rotate(-45deg)
+      top: -4px

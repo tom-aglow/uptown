@@ -1,0 +1,31 @@
+//  MY VARIABLES
+@import "1-base/variables";
+
+//  EXTERNAL LIBRARIES
+$theme-colors: (
+        primary: $color-brown-tone-3,
+        secondary: white,
+        success: white,
+        info: white,
+        warning: white,
+        danger: white,
+        light: $color-grey-tone-1,
+        dark: white
+);
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+
+//  MY STYLES
+
+@import "1-base/fonts";
+@import "1-base/mixins";
+
+@import "2-elements/buttons";
+@import "2-elements/navbar-mobile";
+
+@import "3-modules/page-header";
+
+@import "4-dry/colors";
+@import "4-dry/font-styles";

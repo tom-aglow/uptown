@@ -1,0 +1,41 @@
+.page-header
+  height: 85px
+
+.page-header__top
+  display: flex
+  justify-content: space-between
+  align-items: center
+  z-index: 10
+  position: fixed
+  left: 0
+  top: 0
+  width: 100%
+  padding: 20px 50px
+
+.navbar
+  padding: 0
+
+.navbar,
+.page-header__top .page-header__phone
+  @media screen and (max-width: 1050px)
+    display: none
+
+
+.nav-link
+  padding: 8px 12px
+  position: relative
+  &:hover
+    &:after
+      @include pseudo-element(calc(100% - 24px), 4px, 100%, 12px)
+      background-color: $color-grey-tone-1
+
+.logo
+  width: 100px
+
+
+@media screen and (max-width: 500px)
+  .page-header__top .page-header__btn
+    display: none
+
+  .page-header
+    height: 70px

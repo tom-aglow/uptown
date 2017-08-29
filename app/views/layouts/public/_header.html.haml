@@ -1,0 +1,22 @@
+%header.page-header
+  -#top row
+  .page-header__top
+    = image_tag('logo.svg', alt: 'uptown barbers logo', class: ['logo'])
+    .page-header__phone
+      %i.fa.fa-phone
+      %span 604.314.5627
+    %nav.navbar
+      = render(partial: 'layouts/public/navbar')
+    .navbar-mobile-toggle
+      %span
+    %div.page-header__btn
+      %a.btn.btn-primary Book now
+
+  -#mobile nav
+  %nav.navbar-mobile
+    %div.page-header__btn
+      %a.btn.btn-primary Book now
+    = render(partial: 'layouts/public/navbar')
+    .page-header__phone
+      %i.fa.fa-phone
+      604.314.5627
