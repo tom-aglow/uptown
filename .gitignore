@@ -21,3 +21,8 @@
 
 .idea
 tmp/
+.DS_Store
+
+# Ignore design files.
+
+design/
