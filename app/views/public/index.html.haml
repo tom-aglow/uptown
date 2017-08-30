@@ -70,7 +70,7 @@
             4.8
           %p.team-member__cuts amount of cuts: 248
 
-
+// SECTION: SERVICES
 %section.services
   .services__img
   .services__copy.copy-block
@@ -81,3 +81,26 @@
         %span.service_name Haircut
         %span.service_price 120
     .btn.btn-secondary.btn-md Book your seat now
+
+%section.contacts
+  .copy-block
+    %h2 Find us
+    .contacts_container
+      .contacts__info
+        %i.fa.fa-map-marker
+        %span
+          2341 Main Street
+          %br
+          Vancouver, BC V5T 3C9
+        %i.fa.fa-phone
+        %span 604.314.5627
+        %i.fa.fa-envelope-o
+        %a{href: 'mailto: info@uptownbarbers.ca'} info@uptownbarbers.ca
+    .social-media
+      %i.fa.fa-facebook
+      %i.fa.fa-twitter
+      %i.fa.fa-instagram
+
+  #google-map
+    %script(async defer){type: 'text/javascript', src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCm0hJwCscX2NwRQ23nbUVDVkltEaa-HDE&callback=initMap'}
+    = javascript_include_tag 'public/google-map'

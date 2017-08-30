@@ -1,0 +1,33 @@
+.contacts
+  display: grid
+  grid-template-columns: 600px 1fr
+  @media screen and (max-width: 950px)
+    grid-template-columns: 1fr
+    grid-template-rows: 300px auto
+    grid-auto-flow: row
+    .copy-block
+      grid-row: 2 / 3
+    #google-map
+      grid-row: 1 / 2
+
+
+.contacts_container
+  width: 250px
+  margin: 0 auto
+  margin-top: 80px
+
+.contacts__info
+  text-align: left
+  display: grid
+  grid-template-columns: 20px 1fr
+  grid-gap: 15px 5px
+
+  .fa
+    padding-top: 4px
+
+
+.social-media
+  font-size: 1.3rem
+  margin-top: 100px
+  i:not(:last-child)
+    margin-right: 20px
