@@ -1,0 +1,21 @@
+.services
+  display: grid
+  grid-template-columns: 1fr 720px
+  @media screen and (max-width: 810px)
+    grid-template-columns: 0 1fr
+
+.services__img
+  @include background-img('services.jpg', -420px 200px)
+
+.services__list
+  display: grid
+  grid-template-columns: 200px 30px
+  grid-row-gap: 10px
+  padding-left: calc(50% - 230px / 2)
+  margin: 60px 0
+
+.service_name
+  text-align: left
+
+.service_price
+  text-align: right
