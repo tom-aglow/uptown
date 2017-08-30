@@ -1,4 +1,9 @@
 .navbar-mobile
+  position: fixed
+  top: -100vh
+  left: 0
+  width: 100%
+  z-index: 5
   @media screen and (max-width: 1050px)
     display: flex
     flex-direction: column
@@ -23,13 +28,16 @@
         @include pseudo-element(40px, 4px, 100%, calc(50% - 20px))
 
 
-  transform: translateY(-200%)
+  //transform: translateY(-200%)
   transition: all 1s
 
   &.is-open
-    transform: translateY(85px)
+    //transform: translateY(85px)
+    top: 85px
     @media screen and (max-width: 500px)
-      transform: translateY(70px)
+      //transform: translateY(70px)
+      top: 70px
+
 
   .page-header__btn
     display: none

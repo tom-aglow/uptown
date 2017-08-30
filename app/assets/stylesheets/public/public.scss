@@ -24,9 +24,12 @@ $theme-colors: (
 
 @import "2-elements/buttons";
 @import "2-elements/navbar-mobile";
+@import "2-elements/carousel";
 
 @import "3-modules/page-header";
 @import "3-modules/section-hero";
+@import "3-modules/section-about";
 
 @import "4-dry/colors";
 @import "4-dry/font-styles";
+@import "4-dry/spacing";

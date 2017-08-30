@@ -1,0 +1,30 @@
+.carousel-control-prev
+  left: -60px
+  @media screen and (max-width: 420px)
+    left: -30px
+
+.carousel-control-next
+  right: -60px
+  @media screen and (max-width: 420px)
+    right: -30px
+
+.carousel-control-next,
+.carousel-control-prev
+  @media screen and (max-width: 420px)
+    width: 30px
+
+
+.chevron-right
+  transform: rotate(180deg)
+
+.carousel-indicators
+  bottom: -30px
+  z-index: 3
+  li
+    width: 10px
+    height: 10px
+    border-radius: 50%
+    border: 1px solid $color-brown-tone-2
+
+  .active
+    background-color: $color-brown-tone-2

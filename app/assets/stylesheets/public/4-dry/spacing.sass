@@ -1,0 +1,19 @@
+h2
+  position: relative
+  &::after
+    @include pseudo-element(220px, 2px, calc(100% + 10px), calc(50% - 110px))
+  margin-bottom: 50px
+
+.copy-block
+  padding: 80px 120px 50px 120px
+  @media screen and (max-width: 580px)
+    padding: 50px 60px 30px 60px
+  @media screen and (max-width: 420px)
+    padding: 30px 30px 20px 30px
+
+.copy-block-sm
+  padding: 30px 120px 30px 120px
+  @media screen and (max-width: 580px)
+    padding: 30px 60px 30px 60px
+  @media screen and (max-width: 420px)
+    padding: 30px 30px 30px 30px

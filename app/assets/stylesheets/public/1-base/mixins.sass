@@ -7,3 +7,10 @@
   top: $top
   left: $left
 
+@mixin background-img($url, $pos, $size:"cover")
+  background:
+    image: image_url($url)
+    repeat: no-repeat
+    size: #{$size}
+    position: $pos
+    attachment: fixed

@@ -5,3 +5,49 @@
       %br
       be yourself
     = image_tag('chevron-lg.svg')
+
+%section.about
+
+  -#Backgroung image
+  .about__img
+
+  -#Mission
+  .about__mission.copy-block
+    %h2 Our mission
+    %p At Uptown Barbers, we believe that men deserve to take pride in their hair and beard styles. Whether you’re in the mood for a straight razor shave or you want to clean up your cut before a night on the town, we’ll groom your hair and beard to perfection. Our fully qualified barbers are dedicated to giving you the look and style of your dreams, all while you relax in our comfortable, rustic barber shop.
+    %p Nothing says “classic barber shop” quite like the straight razor shave. Our towels are always hot and our razors are kept sharp, giving you the closest, smoothest shave you’ll ever experience. Every haircut comes with a complimentary neck shave—we want you looking your best when you leave our shop.
+
+  -#Testimonials
+  .about__testimonials.copy-block-sm
+    %h3 What clients say
+
+    -#Carousel
+    %div.carousel.slide#carousel-indicators-target{data: {ride: 'carousel'}}
+
+      -#Indicators
+      %ol.carousel-indicators
+        %li.active{data: {target: 'carousel-indicators-target', slide_to: 0}}
+        %li{data: {target: 'carousel-indicators-target', slide_to: 1}}
+        %li{data: {target: 'carousel-indicators-target', slide_to: 2}}
+
+      -#Content
+      %div.carousel-inner
+        .carousel-item.active
+          %p Alek Hill two days ago:
+          %p “Bicycle rights mixtape keffiyeh muggle magic tumblr. Synth vinegar humblebrag normcore williamsburg wes anderson.”
+        .carousel-item
+          %p Alek Hill three days ago:
+          %p “Bicycle rights mixtape keffiyeh muggle magic tumblr. Synth vinegar humblebrag normcore williamsburg wes anderson.”
+        .carousel-item
+          %p Alek Hill four days ago:
+          %p “Bicycle rights mixtape keffiyeh muggle magic tumblr. Synth vinegar humblebrag normcore williamsburg wes anderson.”
+
+      -#Controls
+      %a.carousel-control-prev{href: '#carousel-indicators-target', role: 'button', data: {slide: 'prev'}}
+        -#%span.carousel-control-prev-icon{aria_hidden: 'true'}
+        = image_tag('chevron-md.svg', aria_hidden: 'true')
+        %span.sr-only Previous
+      %a.carousel-control-next{href: '#carousel-indicators-target', role: 'button', data: {slide: 'next'}}
+        = image_tag('chevron-md.svg', class: 'chevron-right', aria_hidden: 'true')
+        -#%span.carousel-control-next-icon{aria_hidden: 'true'}
+        %span.sr-only Next
