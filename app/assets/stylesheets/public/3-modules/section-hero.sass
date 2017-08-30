@@ -1,0 +1,17 @@
+.hero
+  height: calc(100vh - 85px)
+  @media screen and (max-width: 500px)
+    height: calc(100vh - 70px)
+  background:
+    image: image_url('hero.jpg')
+    repeat: no-repeat
+    size: cover
+    position: center center
+    attachment: fixed
+  position: relative
+  z-index: -1
+
+.hero__container
+  position: absolute
+  width: 100%
+  bottom: 40px
