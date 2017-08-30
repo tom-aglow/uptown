@@ -1,2 +1,21 @@
-%h1 Public#reservation
-%p Find me in app/views/public/reservation.html.haml
+%section.reservation
+  .reserv__container
+    .reserv__step.barbers
+      .barbers__header
+        %h4 Choose a barber
+        %p or skip step
+      .barbers__names
+        %span Keely
+        %span Keely
+        %span.active Keely
+        %span Keely
+        %span Keely
+      .barbers__img
+        - 5.times do |i|
+          .barbers__img__cont
+            = image_tag("barbers/avatar_#{i + 1}.jpg", alt: 'uptown barbers avatar')
+
+    .reserv__step
+      %h4 Select date&time
+    .reserv__step
+      %h4 Leave your contacts
