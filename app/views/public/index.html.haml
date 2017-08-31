@@ -77,9 +77,9 @@
     %h2 Look your best
     %p From styles that make a statement to the classic looks from years past, our team specializes in providing personalized service to all of our clients. We can match any hairstyle you are looking for, including:
     .services__list
-      - 7.times do |i|
-        %span.service_name Haircut
-        %span.service_price 120
+      - @services.each do |service|
+        %span.service_name #{service.name}
+        %span.service_price #{service.price}
     .btn.btn-secondary.btn-md Book your seat now
 
 %section.contacts#contacts
