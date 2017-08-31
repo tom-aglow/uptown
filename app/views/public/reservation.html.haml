@@ -4,16 +4,15 @@
       .barbers__header
         %h4 Choose a barber
         %p or skip step
+
       .barbers__names
-        %span Keely
-        %span Keely
-        %span.active Keely
-        %span Keely
-        %span Keely
+        - @barbers.each do |barber|
+          %span #{barber.first_name}
+
       .barbers__img
-        - 5.times do |i|
+        - @barbers.each do |barber|
           .barbers__img__cont
-            = image_tag("barbers/avatar_#{i + 1}.jpg", alt: 'uptown barbers avatar')
+            = image_tag("barbers/#{barber.avatar}", alt: 'uptown barbers avatar')
 
     .reserv__step
       %h4 Select date&time
@@ -45,3 +44,6 @@
           = client.phone_field(:phone)
 
         = shift.submit('Make a reservation')
+
+
+= javascript_include_tag 'public/reservation-page'

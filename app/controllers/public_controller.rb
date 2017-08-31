@@ -9,6 +9,8 @@ class PublicController < ApplicationController
     @shift = Shift.new
     @requisition = Requisition.new
     @client = Client.new
+
+    @barbers = Barber.all()
   end
 
   def book
@@ -24,6 +26,9 @@ class PublicController < ApplicationController
     @requisition.save
   end
 
+  def booking_info
+
+  end
 
   private
 
