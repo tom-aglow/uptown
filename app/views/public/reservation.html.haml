@@ -16,10 +16,13 @@
 
     .reserv__step.step-2
       %h4 Select date&time
+
       %select#select-service
         %option{value: 0, disabled: 'disabled', selected: 'selected', hidden: 'hidden'} select service
         - @services.each do |service|
           %option{value: service.id} #{service.name}
+
+      %input#datepicker{type: 'text'}
 
     .reserv__step.step-3
       %h4 Leave your contacts
