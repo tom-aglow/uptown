@@ -1,6 +1,6 @@
 %section.reservation
   .reserv__container
-    .reserv__step.barbers
+    .reserv__step.step-1
       .barbers__header
         %h4 Choose a barber
         %p or skip step
@@ -14,9 +14,14 @@
           .barbers__img__cont
             = image_tag("barbers/#{barber.avatar}", alt: 'uptown barbers avatar')
 
-    .reserv__step
+    .reserv__step.step-2
       %h4 Select date&time
-    .reserv__step.form-contacts
+      %select#select-service
+        %option{value: 0, disabled: 'disabled', selected: 'selected', hidden: 'hidden'} select service
+        - @services.each do |service|
+          %option{value: service.id} #{service.name}
+
+    .reserv__step.step-3
       %h4 Leave your contacts
       = form_for(@shift, url: book_path) do |shift|
         = shift.select(:barber_id) do
@@ -36,7 +41,7 @@
                                                 selected: 'selected',     |
                                                   hidden: 'hidden'        |
             }]])                                                          |
-            = options_from_collection_for_select(Service.all, :id, :name)
+            = options_from_collection_for_select(@services, :id, :name)
 
         = fields_for(@client) do |client|
           = client.text_field(:full_name)

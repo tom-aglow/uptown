@@ -13,6 +13,11 @@ $(function () {
         selectBarber(index);
     });
 
+    //  EVENTS WHEN STEP 2 BOXES CHANGES THEIR VALUE > UPDATE VALUES IN CORRESPONDENT FORM INPUTS
+    $('#select-service').change(function () {
+        $('#requisition_service_id').val($(this).val());
+    });
+
 
     //  FUNCTIONS
     

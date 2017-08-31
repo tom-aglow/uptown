@@ -11,6 +11,7 @@ class PublicController < ApplicationController
     @client = Client.new
 
     @barbers = Barber.all()
+    @services = Service.all()
   end
 
   def book
