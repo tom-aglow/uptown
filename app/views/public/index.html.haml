@@ -28,21 +28,15 @@
 
       -#Indicators
       %ol.carousel-indicators
-        %li.active{data: {target: 'carousel-indicators-target', slide_to: 0}}
-        %li{data: {target: 'carousel-indicators-target', slide_to: 1}}
-        %li{data: {target: 'carousel-indicators-target', slide_to: 2}}
+        - @testimonials.size.times do |i|
+          %li{class: ('active' if i == 0), data: {target: 'carousel-indicators-target', slide_to: i}}
 
       -#Content
       %div.carousel-inner
-        .carousel-item.active
-          %p Alek Hill two days ago:
-          %p “Bicycle rights mixtape keffiyeh muggle magic tumblr. Synth vinegar humblebrag normcore williamsburg wes anderson.”
-        .carousel-item
-          %p Alek Hill three days ago:
-          %p “Bicycle rights mixtape keffiyeh muggle magic tumblr. Synth vinegar humblebrag normcore williamsburg wes anderson.”
-        .carousel-item
-          %p Alek Hill four days ago:
-          %p “Bicycle rights mixtape keffiyeh muggle magic tumblr. Synth vinegar humblebrag normcore williamsburg wes anderson.”
+        - @testimonials.each do |test|
+          .carousel-item{class: ('active' if @testimonials.index(test) == 0)}
+            %p #{test.author} #{distance_of_time_in_words_to_now(test.created_at)} ago:
+            %p “#{test.body}”
 
       -#Controls
       %a.carousel-control-prev{href: '#carousel-indicators-target', role: 'button', data: {slide: 'prev'}}
