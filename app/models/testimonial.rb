@@ -1,3 +1,3 @@
 class Testimonial < ApplicationRecord
-  belongs_to :order
+  belongs_to :requisition
 end

@@ -27,7 +27,7 @@ barbers_num = 5
 barbers_num.times do |i|
   Barber.create(first_name: Faker::Name.first_name,
                 last_name: Faker::Name.last_name,
-                avatar: "barber_#{i + 1}.jpg"
+                avatar: "avatar_#{i + 1}.jpg"
   )
 end
 
@@ -101,14 +101,14 @@ barbers_num.times do |i|
   20.times do
     shift_record = Shift.where(barber_id: i + 1).limit(1).order("RAND()").first
 
-    order_date = Time.parse(shift_record.date.to_s)
+    req_date = Time.parse(shift_record.date.to_s)
 
-    order_record = Order.create(client_id: 1 + rand(19),
+    req_record = Requisition.create(client_id: 1 + rand(19),
                          service_id: 1 + rand(6),
                          shift_id: shift_record.id,
                          status: 'booked',
-                         created_at: order_date,
-                         updated_at: order_date
+                         created_at: req_date,
+                         updated_at: req_date
     )
 
     shift_record.update_attributes(is_free: false)
@@ -121,29 +121,29 @@ end
 20.times do
 
   # setting up parameters
-  order_date = Faker::Time.between(14.days.ago, 5.days.ago)
-  service_date = Date.parse((order_date + 3.days).to_s)
+  req_date = Faker::Time.between(14.days.ago, 5.days.ago)
+  service_date = Date.parse((req_date + 3.days).to_s)
   service_time = rand(10...19).to_s + ':00:00'
   barber_id_rand = get_random_record_id(Barber)
-  testimonial_date = order_date + 4.days
+  testimonial_date = req_date + 4.days
 
   # creating or updating shift record
   shift_record = Shift.find_or_initialize_by(date: service_date, time: service_time, barber_id: barber_id_rand)
   shift_record.update_attributes(is_free: false)
 
   # creating an order record
-  order_record = Order.create(client_id: get_random_record_id(Client),
+  req_record = Requisition.create(client_id: get_random_record_id(Client),
                       service_id: get_random_record_id(Service),
                       shift_id: shift_record.id,
                       status: 'paid',
-                      created_at: order_date,
-                      updated_at: order_date
+                      created_at: req_date,
+                      updated_at: req_date
   )
 
   # creating testimonial record
-  Testimonial.create(order_id:order_record.id,
+  Testimonial.create(requisition_id: req_record.id,
                  body: Faker::Hipster.paragraph(1),
-                 grade: rand(5) + 1,
+                 grade: rand(4..5),
                  created_at: testimonial_date,
                  updated_at: testimonial_date
   )

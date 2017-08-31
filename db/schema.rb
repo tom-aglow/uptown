@@ -28,16 +28,16 @@ ActiveRecord::Schema.define(version: 20170828173220) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "requisitions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "client_id", null: false
     t.bigint "service_id", null: false
     t.bigint "shift_id", null: false
     t.string "status", limit: 20, default: "new", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "fk_rails_5c8e53c896"
-    t.index ["service_id"], name: "fk_rails_4d159e34c4"
-    t.index ["shift_id", "client_id", "service_id"], name: "index_orders_on_shift_id_and_client_id_and_service_id"
+    t.index ["client_id"], name: "fk_rails_a0ecb3a1ed"
+    t.index ["service_id"], name: "fk_rails_2244a7d996"
+    t.index ["shift_id", "client_id", "service_id"], name: "index_requisitions_on_shift_id_and_client_id_and_service_id"
   end
 
   create_table "services", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -59,12 +59,12 @@ ActiveRecord::Schema.define(version: 20170828173220) do
   end
 
   create_table "testimonials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "order_id", null: false
+    t.bigint "requisition_id", null: false
     t.text "body", null: false
     t.integer "grade", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_testimonials_on_order_id", unique: true
+    t.index ["requisition_id"], name: "index_testimonials_on_requisition_id", unique: true
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(version: 20170828173220) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "orders", "clients"
-  add_foreign_key "orders", "services"
-  add_foreign_key "orders", "shifts"
+  add_foreign_key "requisitions", "clients"
+  add_foreign_key "requisitions", "services"
+  add_foreign_key "requisitions", "shifts"
   add_foreign_key "shifts", "barbers"
-  add_foreign_key "testimonials", "orders"
+  add_foreign_key "testimonials", "requisitions"
 end

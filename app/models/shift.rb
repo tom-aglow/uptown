@@ -1,4 +1,4 @@
 class Shift < ApplicationRecord
   belongs_to :barber
-  has_one :order, required: false
+  has_one :requisition, required: false
 end

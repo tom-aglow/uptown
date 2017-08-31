@@ -60,15 +60,15 @@
     %h2 Meet our team
     %p Take your appearance to the next level with our team of professional and experienced stylists. We take the time to understand your needs so you can get the look you desire. Stop by for your next fade, beard trim, or hot shave. Our team of barbers will make sure your grooming experience is relaxing, enjoyable, and will leave you looking your best.
   .team__container
-    - 5.times do |i|
+    - @barbers.each do |barber|
       .team-member
-        = image_tag("barbers/avatar_#{i + 1}.jpg", alt: 'uptown barbers avatar')
+        = image_tag("barbers/#{barber.avatar}", alt: 'uptown barbers avatar')
         .team-member__info
-          %p.team-member__name BEK
+          %p.team-member__name #{barber.first_name}
           %p.team-member__grade
             %i.fa.fa-star
-            4.8
-          %p.team-member__cuts amount of cuts: 248
+            #{barber.aver_grade}
+          %p.team-member__cuts amount of cuts: #{barber.amount_of_cuts}
 
 // SECTION: SERVICES
 %section.services#services
