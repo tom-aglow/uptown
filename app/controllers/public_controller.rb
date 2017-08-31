@@ -1,7 +1,9 @@
 class PublicController < ApplicationController
+
+  before_action :get_barbers_list, only: [:index, :reservation]
+  before_action :get_services_list, only: [:index, :reservation]
+
   def index
-    @services = Service.all()
-    @barbers = Barber.all()
     @testimonials = Testimonial.latest.limit(5)
   end
 
@@ -10,8 +12,12 @@ class PublicController < ApplicationController
     @requisition = Requisition.new
     @client = Client.new
 
-    @barbers = Barber.all()
-    @services = Service.all()
+    @times = {
+        '11:00:00': '11:00 AM',
+        '14:00:00':  '02:00 PM',
+        '16:00:00':  '04:00 PM',
+        '18:00:00': '06:00 PM'
+    }
   end
 
   def book
@@ -44,5 +50,13 @@ class PublicController < ApplicationController
         shift_id: @shift.id,
         status: 'booked'
     }
+  end
+
+  def get_barbers_list
+    @barbers = Barber.all()
+  end
+
+  def get_services_list
+    @services = Service.all()
   end
 end

@@ -1,6 +1,23 @@
 $(function () {
     let barbersImages = $('.barbers__img__cont');
     let barbersNames = $('.barbers__names span');
+    let timeBoxes = $('.times .time');
+
+    //  CLICK EVENT ON BARBER IMAGE & BARBER NAME
+    barbersImages.click(function () {
+        let index = barbersImages.index($(this));
+        selectBarber(index);
+    });
+
+    barbersNames.click(function () {
+        let index = barbersNames.index($(this));
+        selectBarber(index);
+    });
+
+    //  EVENTS WHEN SERVICES SELECT BOX CHANGES ITS VALUE > UPDATE VALUES IN CORRESPONDENT FORM INPUT
+    $('#select-service').change(function () {
+        $('#requisition_service_id').val($(this).val());
+    });
 
     //  DATEPICKER
     let dateInput = $('#datepicker')
@@ -16,22 +33,19 @@ $(function () {
         $('#shift_date').val(formatDate(dateInput.datepicker('getDate')));
     });
 
-    //  CLICK EVENT ON BARBER IMAGE & BARBER NAME
-    barbersImages.click(function () {
-        let index = barbersImages.index($(this));
-        selectBarber(index);
-    });
+    //  CLICK EVENT ON TIME ELEMENT
+    timeBoxes.click(function () {
+        let $this = $(this);
 
-    barbersNames.click(function () {
-        let index = barbersNames.index($(this));
-        selectBarber(index);
-    });
+        //  change value of corresponding input field
+        $('#shift_time').val($this.data('time'));
 
-    //  EVENTS WHEN STEP 2 BOXES CHANGE THEIR VALUE > UPDATE VALUES IN CORRESPONDENT FORM INPUTS
-    $('#select-service').change(function () {
-        $('#requisition_service_id').val($(this).val());
-    });
+        //  remove active class from all elements
+        timeBoxes.removeClass('active');
 
+        //  add active class only for target element
+        $this.addClass('active');
+    });
 
     //  FUNCTIONS
     
