@@ -1,5 +1,5 @@
 // SECTION: HERO
-%section.hero
+%section.hero#hero
   .hero__container
     %h1
       We are here to help you
@@ -8,7 +8,7 @@
     = image_tag('chevron-lg.svg')
 
 // SECTION: ABOUT
-%section.about
+%section.about#about
 
   -#Backgroung image
   .about__img
@@ -55,7 +55,7 @@
         %span.sr-only Next
 
 // SECTION: TEAM
-%section.team
+%section.team#team
   .team__lead.copy-block
     %h2 Meet our team
     %p Take your appearance to the next level with our team of professional and experienced stylists. We take the time to understand your needs so you can get the look you desire. Stop by for your next fade, beard trim, or hot shave. Our team of barbers will make sure your grooming experience is relaxing, enjoyable, and will leave you looking your best.
@@ -71,7 +71,7 @@
           %p.team-member__cuts amount of cuts: 248
 
 // SECTION: SERVICES
-%section.services
+%section.services#services
   .services__img
   .services__copy.copy-block
     %h2 Look your best
@@ -82,7 +82,7 @@
         %span.service_price 120
     .btn.btn-secondary.btn-md Book your seat now
 
-%section.contacts
+%section.contacts#contacts
 
   -#Contact info block
   .copy-block
@@ -107,3 +107,6 @@
   #google-map
     %script(async defer){type: 'text/javascript', src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCm0hJwCscX2NwRQ23nbUVDVkltEaa-HDE&callback=initMap'}
     = javascript_include_tag 'public/google-map'
+
+= javascript_include_tag 'public/home-page'
+
