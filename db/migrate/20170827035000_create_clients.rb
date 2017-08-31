@@ -6,5 +6,7 @@ class CreateClients < ActiveRecord::Migration[5.1]
       t.string 'phone', limit: 10, null: false
       t.timestamps
     end
+
+    add_index :clients, :email, unique: true
   end
 end
