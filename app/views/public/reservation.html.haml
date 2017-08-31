@@ -19,3 +19,16 @@
       %h4 Select date&time
     .reserv__step
       %h4 Leave your contacts
+      = form_for(@shift, url: book_path) do |shift|
+        = shift.select(:barber_id) do
+          = options_for_select([['choose', 0, { disabled: 'disabled',     |
+                                                selected: 'selected',     |
+                                                  hidden: 'hidden'        |
+            }]])                                                          |
+          = options_from_collection_for_select(Barber.all, :id, :first_name)
+        %br
+        = shift.text_field(:date)
+        %br
+        = shift.text_field(:time)
+        %br
+        = shift.submit('Make a reservation')

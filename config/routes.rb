@@ -4,5 +4,6 @@ Rails.application.routes.draw do
 
   get 'index', to: 'public#index'
   get 'reservation', to: 'public#reservation'
+  post 'reservation', to: 'public#book', as: 'book'
 
 end
