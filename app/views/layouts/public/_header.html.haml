@@ -10,7 +10,7 @@
     .navbar-mobile-toggle
       %span
     %div.page-header__btn
-      %a.btn.btn-primary Book now
+      = link_to('Book now', reservation_path, class: ['btn', 'btn-primary'])
 
   -#mobile nav
   %nav.navbar-mobile
