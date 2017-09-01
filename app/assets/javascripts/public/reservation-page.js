@@ -1,7 +1,8 @@
 $(function () {
     let barbersImages = $('.barbers__img__cont');
     let barbersNames = $('.barbers__names span');
-    let timeBoxes = $('.times .time');
+    let shifts = {};
+    let shiftDates = [];
 
     //  CLICK EVENT ON BARBER IMAGE & BARBER NAME
     barbersImages.click(function () {
@@ -22,9 +23,10 @@ $(function () {
             data: { barber_id: index + 1 },
             complete: function () {},
             success: function (data, textStatus, xhr) {
-                let shifts = getFormattedData(data.shifts);
+                shifts = getFormattedData(data.shifts);
+                shiftDates = Object.keys(shifts);
                 console.log(shifts);
-                setAvailableDates(shifts);
+                setAvailableDates();
             },
             error: function () {
                 console.log('Ajax error!');
@@ -49,18 +51,29 @@ $(function () {
     });
 
     dateInput.datepicker().on('changeDate', function () {
-        $('#shift_date').val(formatDate(dateInput.datepicker('getDate')));
+        //  change the value of input box
+        let selectedDate = formatDate(dateInput.datepicker('getDate'));
+        $('#shift_date').val(selectedDate);
+
+        //  render time boxes
+        let availableTimes = shifts[selectedDate];
+
+        for (let i = 0; i < availableTimes.length; i++) {
+            let time = availableTimes[i].split('T')[1].slice(0, 8);
+            let box = $("<span class='time' data-time=" + time + "></span>").text(formatAMPM(availableTimes[i]));
+            $('#times').append(box);
+        }
+
     });
 
     //  CLICK EVENT ON TIME ELEMENT
-    timeBoxes.click(function () {
+    $(document).on('click', '.time', function () {
         let $this = $(this);
-
         //  change value of corresponding input field
         $('#shift_time').val($this.data('time'));
 
         //  remove active class from all elements
-        timeBoxes.removeClass('active');
+        $('.time').removeClass('active');
 
         //  add active class only for target element
         $this.addClass('active');
@@ -94,6 +107,16 @@ $(function () {
         return [year, month, day].join('-');
     }
 
+    //  === format time from 24-hour format to 12-hour format
+    function formatAMPM (date) {
+        var hours = +date.split(':')[0].slice(-2);
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        var strTime = hours + ':00 ' + ampm;
+        return strTime;
+    }
+
     //  === Manage & format data from AJAX-request
 
     function getFormattedData (shifts) {
@@ -108,18 +131,17 @@ $(function () {
         return dates;
     }
 
-    function setAvailableDates (shifts) {
-        let keys = Object.keys(shifts);
-        let datesAll = getDates(keys[keys.length - 1], keys[0]);
+    function setAvailableDates () {
+        let datesAll = getDates(shiftDates[shiftDates.length - 1], shiftDates[0]);
         let datesUnavailable = [];
 
         for (let i = 0; i < datesAll.length; i++) {
-            if (keys.indexOf(datesAll[i]) === -1) {
+            if (shiftDates.indexOf(datesAll[i]) === -1) {
                 datesUnavailable.push(datesAll[i]);
             }
         }
         dateInput.datepicker('setDatesDisabled', datesUnavailable);
-        dateInput.datepicker('setEndDate', keys[0]);
+        dateInput.datepicker('setEndDate', shiftDates[0]);
     }
 
     //  === all days between two dates
