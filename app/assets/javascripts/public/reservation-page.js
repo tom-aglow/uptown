@@ -1,8 +1,26 @@
 $(function () {
+    //  Variables with DOM elements
     let barbersImages = $('.barbers__img__cont');
     let barbersNames = $('.barbers__names span');
+
+    //      form elements
+    let _shiftDate = $('#shift_date');
+    let _shiftTime = $('#shift_time');
+    let _shiftBarberID = $('#shift_barber_id');
+    let _reqServieID = $('#requisition_service_id');
+
+    //      UI elements for selecting date, time and service
+    let shiftDateUI = $('#datepicker');
+    let timesUI = $('#times');
+    let shiftServiceUI = $('#select-service');
+
+    //  Global variables
     let shifts = {};
     let shiftDates = [];
+
+    //  On page load check if fields have some values after validation
+    //      if so, preselect UI elements for user
+
 
     //  CLICK EVENT ON BARBER IMAGE & BARBER NAME
     barbersImages.click(function () {
@@ -18,14 +36,13 @@ $(function () {
     });
 
     //  EVENTS WHEN SERVICES SELECT BOX CHANGES ITS VALUE > UPDATE VALUES IN CORRESPONDENT FORM INPUT
-    $('#select-service').change(function () {
-        $('#requisition_service_id').val($(this).val());
+    shiftServiceUI.change(function () {
+        _reqServieID.val($(this).val());
     });
 
-    //  DATEPICKER
-    let dateInput = $('#datepicker');
+    //  DATE PICKER INITIALISATION
 
-    dateInput.datepicker({
+    shiftDateUI.datepicker({
         format: 'yyyy-mm-dd',
         orientation: 'left bottom',
         startDate: new Date(),                  //  picker is initiated with no available dates first
@@ -34,31 +51,30 @@ $(function () {
         autoclose: true
     });
 
-    dateInput.datepicker().on('changeDate', function () {
+    shiftDateUI.datepicker().on('changeDate', function () {
         //  change the value of input box
-        let selectedDate = formatDate(dateInput.datepicker('getDate'));
-        $('#shift_date').val(selectedDate);
+        let selectedDate = formatDate(shiftDateUI.datepicker('getDate'));
+        _shiftDate.val(selectedDate);
 
         //  render time boxes
         let availableTimes = shifts[selectedDate];
 
-        $('.time').remove();
+        timesUI.empty();
 
         for (let i = 0; i < availableTimes.length; i++) {
             let box = $("<span class='time' data-time=" + availableTimes[i] + "></span>").text(formatAMPM(availableTimes[i]));
-            $('#times').append(box);
+            timesUI.append(box);
         }
-
     });
 
     //  CLICK EVENT ON TIME ELEMENT
     $(document).on('click', '.time', function () {
         let $this = $(this);
         //  change value of corresponding input field
-        $('#shift_time').val($this.data('time'));
+        _shiftTime.val($this.data('time'));
 
         //  remove active class from all elements
-        $('.time').removeClass('active');
+        timesUI.children().removeClass('active');
 
         //  add active class only for target element
         $this.addClass('active');
@@ -68,7 +84,11 @@ $(function () {
 
     //  === highlight selected barber
     function selectBarber (index) {
-        $('#shift_barber_id').val(index + 1);
+        //  delete all time boxes and set date to default
+        setDefaultView();
+
+        //  add barber_id to the form
+        _shiftBarberID.val(index + 1);
 
         //  remove active class from all elements
         barbersImages.removeClass('active');
@@ -104,10 +124,10 @@ $(function () {
 
     //  === set default date of datepicker and remove all time elements
     function setDefaultView () {
-        dateInput.datepicker('update', new Date());
-        $('.time').remove();
-        $('#shift_date').val('');
-        $('#shift_time').val('');
+        shiftDateUI.datepicker('update', new Date());
+        timesUI.empty();
+        _shiftDate.val('');
+        _shiftTime.val('');
     }
 
     //  === Retrieve, format & manage data from AJAX-request
@@ -153,8 +173,8 @@ $(function () {
                 datesUnavailable.push(datesAll[i]);
             }
         }
-        dateInput.datepicker('setDatesDisabled', datesUnavailable);
-        dateInput.datepicker('setEndDate', shiftDates[0]);
+        shiftDateUI.datepicker('setDatesDisabled', datesUnavailable);
+        shiftDateUI.datepicker('setEndDate', shiftDates[0]);
     }
 
     //  === all days between two dates
