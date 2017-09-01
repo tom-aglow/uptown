@@ -8,30 +8,13 @@ $(function () {
     barbersImages.click(function () {
         let index = barbersImages.index($(this));
         selectBarber(index);
+        getShiftsInfo(index + 1);
     });
 
     barbersNames.click(function () {
         let index = barbersNames.index($(this));
         selectBarber(index);
-
-        //  AJAX
-
-        $.ajax({
-            url: "/booking_info",
-            type: "GET",
-            format: "json",
-            data: { barber_id: index + 1 },
-            complete: function () {},
-            success: function (data, textStatus, xhr) {
-                shifts = getFormattedData(data.shifts);
-                shiftDates = Object.keys(shifts);
-                console.log(shifts);
-                setAvailableDates();
-            },
-            error: function () {
-                console.log('Ajax error!');
-            }
-        });
+        getShiftsInfo(index + 1);
     });
 
     //  EVENTS WHEN SERVICES SELECT BOX CHANGES ITS VALUE > UPDATE VALUES IN CORRESPONDENT FORM INPUT
@@ -46,9 +29,12 @@ $(function () {
         format: 'yyyy-mm-dd',
         orientation: 'left bottom',
         startDate: new Date(),
+        endDate: new Date(Date.now() - 864e5),
         todayHighlight: true,
         autoclose: true
     });
+
+    setDefaultView();
 
     dateInput.datepicker().on('changeDate', function () {
         //  change the value of input box
@@ -57,6 +43,8 @@ $(function () {
 
         //  render time boxes
         let availableTimes = shifts[selectedDate];
+
+        $('.time').remove();
 
         for (let i = 0; i < availableTimes.length; i++) {
             let time = availableTimes[i].split('T')[1].slice(0, 8);
@@ -113,11 +101,40 @@ $(function () {
         var ampm = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12;
         hours = hours ? hours : 12; // the hour '0' should be '12'
+        hours = (hours < 10) ? '0' + hours : hours;
         var strTime = hours + ':00 ' + ampm;
         return strTime;
     }
 
-    //  === Manage & format data from AJAX-request
+    //  === set default date of datepicker and remove all time elements
+    function setDefaultView () {
+        dateInput.datepicker('update', new Date());
+        $('.time').remove();
+        $('#shift_date').val('');
+        $('#shift_time').val('');
+    }
+
+    //  === Retrieve, format & manage data from AJAX-request
+
+    function getShiftsInfo (barber_id) {
+        $.ajax({
+            url: "/booking_info",
+            type: "GET",
+            format: "json",
+            data: { barber_id: barber_id },
+            complete: function () {},
+            success: function (data, textStatus, xhr) {
+                shifts = getFormattedData(data.shifts);
+                shiftDates = Object.keys(shifts);
+
+                setAvailableDates();
+                setDefaultView();
+            },
+            error: function () {
+                console.log('Ajax error!');
+            }
+        });
+    }
 
     function getFormattedData (shifts) {
         let dates = {};
