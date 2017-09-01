@@ -18,30 +18,7 @@ $(function () {
     let shifts = {};
     let shiftDates = [];
 
-    //  On page load check if fields have some values after validation
-    //      if so, preselect UI elements for user
-
-
-    //  CLICK EVENT ON BARBER IMAGE & BARBER NAME
-    barbersImages.click(function () {
-        let index = barbersImages.index($(this));
-        selectBarber(index);
-        getShiftsInfo(index + 1);
-    });
-
-    barbersNames.click(function () {
-        let index = barbersNames.index($(this));
-        selectBarber(index);
-        getShiftsInfo(index + 1);
-    });
-
-    //  EVENTS WHEN SERVICES SELECT BOX CHANGES ITS VALUE > UPDATE VALUES IN CORRESPONDENT FORM INPUT
-    shiftServiceUI.change(function () {
-        _reqServieID.val($(this).val());
-    });
-
-    //  DATE PICKER INITIALISATION
-
+    //  Date picker initialization
     shiftDateUI.datepicker({
         format: 'yyyy-mm-dd',
         orientation: 'left bottom',
@@ -51,6 +28,60 @@ $(function () {
         autoclose: true
     });
 
+    //  On page load check if fields have some values after validation
+    //      if so, preselect UI elements for user
+
+    if (_shiftBarberID.val() !== '') {
+        let index = _shiftBarberID.val() - 1;
+
+        //  highlight barber image and name
+        selectBarber(index);
+
+        //  make ajax request to retrieve info about barbers availability
+        getShiftsInfo(index + 1);
+
+        if (_shiftDate.val() !== '') {
+            //  setup date picker value
+            shiftDateUI.val(_shiftDate.val());
+            //  see other actions in ajax request since it is asynchronous and we have to wait when it finishes
+        }
+    }
+
+
+    //  CLICK EVENT ON BARBER IMAGE & BARBER NAME
+    barbersImages.click(function () {
+        let index = barbersImages.index($(this));
+
+        //  delete all time boxes and set date to default
+        setDefaultView();
+
+        //  highlight barber image and name
+        selectBarber(index);
+
+        //  make ajax request to retrieve info about barbers availability
+        getShiftsInfo(index + 1);
+    });
+
+    barbersNames.click(function () {
+        let index = barbersNames.index($(this));
+
+        //  delete all time boxes and set date to default
+        setDefaultView();
+
+        //  highlight barber image and name
+        selectBarber(index);
+
+        //  make ajax request to retrieve info about barbers availability
+        getShiftsInfo(index + 1);
+    });
+
+    //  EVENTS WHEN SERVICES SELECT BOX CHANGES ITS VALUE > UPDATE VALUES IN CORRESPONDENT FORM INPUT
+    shiftServiceUI.change(function () {
+        _reqServieID.val($(this).val());
+    });
+
+
+//  DATE PICKER ON CHANGE EVENT
     shiftDateUI.datepicker().on('changeDate', function () {
         //  change the value of input box
         let selectedDate = formatDate(shiftDateUI.datepicker('getDate'));
@@ -59,12 +90,7 @@ $(function () {
         //  render time boxes
         let availableTimes = shifts[selectedDate];
 
-        timesUI.empty();
-
-        for (let i = 0; i < availableTimes.length; i++) {
-            let box = $("<span class='time' data-time=" + availableTimes[i] + "></span>").text(formatAMPM(availableTimes[i]));
-            timesUI.append(box);
-        }
+        renderTimeBoxes(availableTimes);
     });
 
     //  CLICK EVENT ON TIME ELEMENT
@@ -84,9 +110,6 @@ $(function () {
 
     //  === highlight selected barber
     function selectBarber (index) {
-        //  delete all time boxes and set date to default
-        setDefaultView();
-
         //  add barber_id to the form
         _shiftBarberID.val(index + 1);
 
@@ -143,8 +166,18 @@ $(function () {
                 shifts = getFormattedData(data.shifts);
                 shiftDates = Object.keys(shifts);
 
-                setDefaultView();
                 setAvailableDates();
+
+                //  create time boxes if date was already selected
+                if (_shiftDate.val() !== '') {
+                    let availableTimes = shifts[_shiftDate.val()];
+                    renderTimeBoxes(availableTimes);
+
+                    //  and select time if it was selected in previous request
+                    if (_shiftTime.val() !== '') {
+                        $('*[data-time="' + _shiftTime.val() + '"]').addClass('active');
+                    }
+                }
             },
             error: function () {
                 console.log('Ajax error!');
@@ -175,6 +208,15 @@ $(function () {
         }
         shiftDateUI.datepicker('setDatesDisabled', datesUnavailable);
         shiftDateUI.datepicker('setEndDate', shiftDates[0]);
+    }
+
+    function renderTimeBoxes(times) {
+        timesUI.empty();
+
+        for (let i = 0; i < times.length; i++) {
+            let box = $("<span class='time' data-time=" + times[i] + "></span>").text(formatAMPM(times[i]));
+            timesUI.append(box);
+        }
     }
 
     //  === all days between two dates
