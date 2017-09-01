@@ -33,6 +33,7 @@
     .reserv__step.step-3
       %h4 Leave your contacts
       = form_for(@shift, url: book_path) do |shift|
+
         = shift.select(:barber_id) do
           = options_for_select([['choose', 0, { disabled: 'disabled',     |
                                                 selected: 'selected',     |
@@ -56,8 +57,8 @@
           = client.text_field(:full_name)
           = client.email_field(:email)
           = client.phone_field(:phone)
+          = error_messages_for(client.object)
 
         = shift.submit('Make a reservation')
-
 
 = javascript_include_tag 'public/reservation-page'

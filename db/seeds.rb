@@ -55,7 +55,7 @@ end
 20.times do
   Client.create(full_name: Faker::Name.name,
                 email: Faker::Internet.free_email,
-                phone: Faker::Number.number(10)
+                phone: '1' + Faker::Number.number(10).to_s
   )
 end
 

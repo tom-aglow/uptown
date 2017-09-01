@@ -23,9 +23,10 @@ ActiveRecord::Schema.define(version: 20170828173220) do
   create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "full_name", limit: 50, null: false
     t.string "email", limit: 50, null: false
-    t.string "phone", limit: 10, null: false
+    t.string "phone", limit: 11, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_clients_on_email", unique: true
   end
 
   create_table "requisitions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

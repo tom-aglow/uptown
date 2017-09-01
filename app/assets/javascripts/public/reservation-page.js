@@ -127,8 +127,8 @@ $(function () {
                 shifts = getFormattedData(data.shifts);
                 shiftDates = Object.keys(shifts);
 
-                setAvailableDates();
                 setDefaultView();
+                setAvailableDates();
             },
             error: function () {
                 console.log('Ajax error!');
@@ -149,7 +149,7 @@ $(function () {
     }
 
     function setAvailableDates () {
-        let datesAll = getDates(shiftDates[shiftDates.length - 1], shiftDates[0]);
+        let datesAll = getDates(new Date(), shiftDates[0]);
         let datesUnavailable = [];
 
         for (let i = 0; i < datesAll.length; i++) {
@@ -164,7 +164,7 @@ $(function () {
     //  === all days between two dates
     function getDates(d1, d2){
         let oneDay = 24 * 3600 * 1000;
-        let dStart = new Date(d1 + ' 12:00:00 GMT-0700');
+        let dStart = d1;
         let dEnd = new Date(d2 + ' 12:00:00 GMT-0700');
         let d = [];
 

@@ -1,6 +1,9 @@
 class Barber < ApplicationRecord
+
+  # Relationships
   has_many :shifts
 
+  # Additional properties
   def aver_grade
     grades = []
     shifts.each do |shift|
