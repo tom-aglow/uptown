@@ -34,7 +34,13 @@ class PublicController < ApplicationController
   end
 
   def booking_info
+    @shifts_available = Shift.available_all(params[:barber_id])
 
+    if request.xhr?
+      render :json => {
+          :shifts => @shifts_available
+      }
+    end
   end
 
   private

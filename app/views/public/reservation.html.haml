@@ -7,6 +7,7 @@
 
       .barbers__names
         - @barbers.each do |barber|
+          -#= link_to barber.first_name, booking_info_path, method: :get, remote: true
           %span #{barber.first_name}
 
       .barbers__img
@@ -27,6 +28,8 @@
       .times
         - @times.each do |key, value|
           %span.time{data: {time: key}} #{value}
+
+      %p#text
 
     .reserv__step.step-3
       %h4 Leave your contacts
