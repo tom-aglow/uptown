@@ -28,13 +28,11 @@ $(function () {
     dateInput.datepicker({
         format: 'yyyy-mm-dd',
         orientation: 'left bottom',
-        startDate: new Date(),
+        startDate: new Date(),                  //  picker is initiated with no available dates first
         endDate: new Date(Date.now() - 864e5),
         todayHighlight: true,
         autoclose: true
     });
-
-    setDefaultView();
 
     dateInput.datepicker().on('changeDate', function () {
         //  change the value of input box
@@ -47,8 +45,7 @@ $(function () {
         $('.time').remove();
 
         for (let i = 0; i < availableTimes.length; i++) {
-            let time = availableTimes[i].split('T')[1].slice(0, 8);
-            let box = $("<span class='time' data-time=" + time + "></span>").text(formatAMPM(availableTimes[i]));
+            let box = $("<span class='time' data-time=" + availableTimes[i] + "></span>").text(formatAMPM(availableTimes[i]));
             $('#times').append(box);
         }
 
@@ -96,14 +93,13 @@ $(function () {
     }
 
     //  === format time from 24-hour format to 12-hour format
-    function formatAMPM (date) {
-        var hours = +date.split(':')[0].slice(-2);
-        var ampm = hours >= 12 ? 'PM' : 'AM';
+    function formatAMPM (time) {
+        let hours = +time.split(':')[0];
+        let ampm = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12;
         hours = hours ? hours : 12; // the hour '0' should be '12'
         hours = (hours < 10) ? '0' + hours : hours;
-        var strTime = hours + ':00 ' + ampm;
-        return strTime;
+        return hours + ':00 ' + ampm;
     }
 
     //  === set default date of datepicker and remove all time elements

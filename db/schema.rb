@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20170828173220) do
 
   create_table "shifts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.date "date", null: false
-    t.time "time", null: false
+    t.string "time", limit: 8, null: false
     t.bigint "barber_id", null: false
     t.boolean "is_free", default: true, null: false
     t.datetime "created_at", null: false

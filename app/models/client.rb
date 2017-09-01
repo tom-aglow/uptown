@@ -17,7 +17,6 @@ class Client < ApplicationRecord
             confirmation: true
 
   validates :phone, presence: true,
-            length: { is: 11 },
             format: { with: PHONE_REGEX, message: ' should have 11 digits and start with 1' }
 
 end
