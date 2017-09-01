@@ -32,33 +32,34 @@
 
     .reserv__step.step-3
       %h4 Leave your contacts
-      = form_for(@shift, url: book_path) do |shift|
+      = form_for(@shift, url: book_path, method: 'post') do |shift|
 
-        = shift.select(:barber_id) do
-          = options_for_select([['choose', 0, { disabled: 'disabled',     |
-                                                selected: 'selected',     |
-                                                  hidden: 'hidden'        |
-            }]])                                                          |
-          = options_from_collection_for_select(Barber.all, :id, :first_name)
-
+        = shift.select(:barber_id, Barber.all.collect { |p| [ p.first_name, p.id ] }, prompt: 'select', selected: shift.object.barber_id)
         = shift.text_field(:date)
-
         = shift.text_field(:time)
 
         = fields_for(@requisition) do |requisition|
-          = requisition.select(:service_id) do
-            = options_for_select([['choose', 0, { disabled: 'disabled',   |
-                                                selected: 'selected',     |
-                                                  hidden: 'hidden'        |
-            }]])                                                          |
-            = options_from_collection_for_select(@services, :id, :name)
+
+          = requisition.select(:service_id, Service.all.collect { |p| [ p.name, p.id ] }, prompt: 'select', selected: requisition.object.service_id)
 
         = fields_for(@client) do |client|
           = client.text_field(:full_name)
           = client.email_field(:email)
           = client.phone_field(:phone)
-          = error_messages_for(client.object)
 
         = shift.submit('Make a reservation')
+
+  -###  Modal with validation errors
+  - if (@client && @client.errors.size > 0) || !flash[:errors].blank?
+    .flash__error
+      %p Cannot make a reservation because of the following problems:
+      %ul.list-unstyled
+        - unless flash[:errors].blank?
+          - flash[:errors].each do |msg|
+            %li #{msg}
+        - if (@client && @client.errors.size > 0)
+          - @client.errors.full_messages.each do |msg|
+            %li #{msg}
+
 
 = javascript_include_tag 'public/reservation-page'
