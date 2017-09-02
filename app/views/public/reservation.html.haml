@@ -15,14 +15,18 @@
             = image_tag("barbers/#{barber.avatar}", alt: 'uptown barbers avatar')
 
     .reserv__step.step-2
-      %h4 Select date&time
+      %h4 Select service & time
 
-      %select#select-service
-        %option{value: 0, disabled: 'disabled', selected: 'selected', hidden: 'hidden'} select service
-        - @services.each do |service|
-          %option{value: service.id} #{service.name}
+      .input-container
+        %i.fa.fa-sort.input-icon-right
+        %select#select-service.custom-select
+          %option{value: 0, disabled: 'disabled', selected: 'selected', hidden: 'hidden'} select service
+          - @services.each do |service|
+            %option{value: service.id} #{service.name}
 
-      %input#datepicker{type: 'text'}
+      .input-container
+        %i.fa.fa-calendar.input-icon-right
+        %input#datepicker{type: 'text'}
 
       #times
         -#- @times.each do |key, value|
@@ -34,20 +38,26 @@
       %h4 Leave your contacts
       = form_for(@shift, url: book_path, method: 'post') do |shift|
 
-        = shift.select(:barber_id, Barber.all.collect { |p| [ p.first_name, p.id ] }, prompt: 'select', selected: shift.object.barber_id)
-        = shift.text_field(:date)
-        = shift.text_field(:time)
+        = shift.select(:barber_id, Barber.all.collect { |p| [ p.first_name, p.id ] }, {prompt: 'select'}, {selected: shift.object.barber_id, class: ['hidden']})
+        = shift.text_field(:date, class: ['hidden'])
+        = shift.text_field(:time, class: ['hidden'])
 
         = fields_for(@requisition) do |requisition|
 
-          = requisition.select(:service_id, Service.all.collect { |p| [ p.name, p.id ] }, prompt: 'select', selected: requisition.object.service_id)
+          = requisition.select(:service_id, Service.all.collect { |p| [ p.name, p.id ] }, {prompt: 'select'}, {selected: requisition.object.service_id, class: ['hidden']})
 
         = fields_for(@client) do |client|
-          = client.text_field(:full_name)
-          = client.email_field(:email)
-          = client.phone_field(:phone)
+          .input-container
+            %i.fa.fa-user.input-icon-left
+            = client.text_field(:full_name, placeholder: "Enter your name")
+          .input-container
+            %i.fa.fa-envelope-o.input-icon-left
+            = client.email_field(:email, placeholder: "Enter your email")
+          .input-container
+            %i.fa.fa-phone.input-icon-left
+            = client.phone_field(:phone, placeholder: "Enter your phone number")
 
-        = shift.submit('Make a reservation')
+        = shift.submit('Make a reservation', class: ['btn', 'btn-submit'])
 
   -###  Modal with validation errors
   - if (@client && @client.errors.size > 0) || !flash[:errors].blank?
