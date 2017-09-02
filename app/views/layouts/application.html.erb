@@ -15,6 +15,11 @@
 
     <body>
         <%= render(partial: 'layouts/public/header') %>
+        <% unless flash[:notice].blank? %>
+            <div class="flash__notice">
+                <%= flash[:notice] %>
+            </div>
+        <% end %>
 
         <%= yield %>
     </body>

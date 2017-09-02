@@ -18,27 +18,34 @@ class PublicController < ApplicationController
     @shift = Shift.where(date: params[:shift][:date],
                          time: params[:shift][:time],
                          barber_id: params[:shift][:barber_id]).first
+
     @client = Client.find_or_initialize_by(email: params[:client][:email])
+
     @requisition = Requisition.new(req_params)
 
+    # validation of shifts fields
+    flash[:errors] = []
+
     if @shift.nil?
-      flash[:errors] = []
       flash[:errors] << 'Please select correct date' if params[:shift][:date].blank?
       flash[:errors] << 'Please select correct time' if params[:shift][:time].blank?
       flash[:errors] << 'Please select a barber' if params[:shift][:barber_id].blank?
       @shift = Shift.new(shift_params)
     end
 
+    # validation of requisition field
     if params[:requisition].nil? || params[:requisition][:service_id].blank?
       (flash[:errors] ||= []) << 'Please select a service'
     end
 
-
-    @client.update_attributes(client_params)
-
-    # @shift.update_attribute(:is_free, false)
-    # @requisition.save
-    render('reservation')
+    if @client.update_attributes(client_params) && flash[:errors].blank?
+      @shift.update_attribute(:is_free, false)
+      @requisition.save
+      flash[:notice] = 'Your reservation was successfully created.'
+      redirect_to(index_path)
+    else
+      render('reservation')
+    end
   end
 
   def booking_info
