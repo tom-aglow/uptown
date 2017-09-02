@@ -41,7 +41,7 @@ class PublicController < ApplicationController
     if @client.update_attributes(client_params) && flash[:errors].blank?
       @shift.update_attribute(:is_free, false)
       @requisition.save
-      flash[:notice] = 'We reserve a seat for you. See you soon.'
+      flash[:notice] = 'We\'ve reserved a seat for you. See you soon.'
       redirect_to(index_path)
     else
       render('reservation')
@@ -49,7 +49,11 @@ class PublicController < ApplicationController
   end
 
   def booking_info
-    @shifts_available = Shift.available_all(params[:barber_id])
+    if params[:barber_id].blank?
+      @shifts_available = Shift.group_shifts_by_date_and_time.all_available
+    else
+      @shifts_available = Shift.all_available_for_barber(params[:barber_id])
+    end
 
     if request.xhr?
       render :json => {

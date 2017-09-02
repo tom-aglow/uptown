@@ -1,4 +1,8 @@
 $(function () {
+    //  ==================
+    //  *** VARIABLES ***
+    //  ==================
+
     //  Variables with DOM elements
     let step1 = $('.reserv__step-1');
     let step2 = $('.reserv__step-2');
@@ -6,6 +10,7 @@ $(function () {
 
     let barbersImages = $('.barbers__img__cont');
     let barbersNames = $('.barbers__names span');
+    let skipStep = $('#skip-step');
 
     //      form elements
     let _shiftDate = $('#shift_date');
@@ -21,6 +26,10 @@ $(function () {
     //  Global variables
     let shifts = {};
     let shiftDates = [];
+
+    //  ======================================
+    //  *** PAGE & ELEMENTS INITIALIZATION ***
+    //  ======================================
 
     //  Date picker initialization
     shiftDateUI.datepicker({
@@ -60,21 +69,9 @@ $(function () {
     //  Reservation tiles animation
     step1.addClass('animate-1');
 
-    function animateSection2 () {
-        step1.addClass('animate-2');
-        setTimeout(function () {
-            step1.addClass('static');
-            step2.addClass('visible');
-            step3.addClass('visible');
-            setTimeout(function () {
-                step2.addClass('animate');
-            }, 100)
-        }, 500)
-    }
-
-    function animateSection3 () {
-        step3.addClass('animate');
-    }
+    //  ===================
+    //  *** PAGE EVENTS ***
+    //  ===================
 
     //  CLICK EVENT ON BARBER IMAGE & BARBER NAME
     barbersImages.click(function () {
@@ -120,7 +117,7 @@ $(function () {
     });
 
 
-//  DATE PICKER ON CHANGE EVENT
+    //  DATE PICKER ON CHANGE EVENT
     shiftDateUI.datepicker().on('changeDate', function () {
         //  change the value of input box
         let selectedDate = formatDate(shiftDateUI.datepicker('getDate'));
@@ -137,6 +134,9 @@ $(function () {
         let $this = $(this);
         //  change value of corresponding input field
         _shiftTime.val($this.data('time'));
+        //      and select barber in case if that step was skipped
+        selectBarber($this.data('barber-id') - 1);
+        // _shiftBarberID.val($this.data('barber-id'));
 
         //  remove active class from all elements
         timesUI.children().removeClass('active');
@@ -150,7 +150,22 @@ $(function () {
         }
     });
 
-    //  FUNCTIONS
+    //  CLICK EVENT ON SKIP STEP LINK
+    skipStep.click(function () {
+        //  delete all time boxes and set date to default
+        setDefaultView();
+
+        //  make ajax request to retrieve info about barbers availability
+        getShiftsInfo();
+
+        //  animate current and next section
+        animateSection2();
+    });
+
+
+    //  =================
+    //  *** FUNCTIONS ***
+    //  =================
 
     //  === highlight selected barber
     function selectBarber (index) {
@@ -197,9 +212,26 @@ $(function () {
         _shiftTime.val('');
     }
 
+    //  === function for section tiles animation
+    function animateSection2 () {
+        step1.addClass('animate-2');
+        setTimeout(function () {
+            step1.addClass('static');
+            step2.addClass('visible');
+            step3.addClass('visible');
+            setTimeout(function () {
+                step2.addClass('animate');
+            }, 100)
+        }, 500)
+    }
+
+    function animateSection3 () {
+        step3.addClass('animate');
+    }
+
     //  === Retrieve, format & manage data from AJAX-request
 
-    function getShiftsInfo (barber_id) {
+    function getShiftsInfo (barber_id = '') {
         $.ajax({
             url: "/booking_info",
             type: "GET",
@@ -208,6 +240,7 @@ $(function () {
             complete: function () {},
             success: function (data, textStatus, xhr) {
                 shifts = getFormattedData(data.shifts);
+                console.log(shifts);
                 shiftDates = Object.keys(shifts);
 
                 setAvailableDates();
@@ -236,7 +269,10 @@ $(function () {
             if (!dates[key]) {
                 dates[key] = [];
             }
-            dates[key].push(shifts[i].time);
+            let obj = {};
+            obj.time = shifts[i].time;
+            obj.barber_id = shifts[i].barber_id;
+            dates[key].push(obj);
         }
         return dates;
     }
@@ -258,7 +294,7 @@ $(function () {
         timesUI.empty();
 
         for (let i = 0; i < times.length; i++) {
-            let box = $("<span class='time' data-time=" + times[i] + "></span>").text(formatAMPM(times[i]));
+            let box = $("<span class='time' data-time=" + times[i].time + " data-barber-id=" + times[i].barber_id + "></span>").text(formatAMPM(times[i].time));
             timesUI.append(box);
         }
     }

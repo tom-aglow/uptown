@@ -1,4 +1,5 @@
 - @page_title = 'Reservation'
+-#- @has_error = true
 - @has_error = (@client && @client.errors.size > 0) || !flash[:errors].blank?
 
 %section.reservation
@@ -6,7 +7,7 @@
     .reserv__step-1{class: (@has_error) ? ['animate-1', 'animate-2', 'static'] : '' }
       .barbers__header
         %h4 Choose a barber
-        %p or skip step
+        %p#skip-step or skip step
 
       .barbers__names
         - @barbers.each do |barber|
@@ -29,13 +30,9 @@
 
       .input-container
         %i.fa.fa-calendar.input-icon-right
-        %input#datepicker{type: 'text'}
+        %input#datepicker{type: 'text', placeholder: "select date"}
 
       #times
-        -#- @times.each do |key, value|
-        -#  %span.time{data: {time: key}} #{value}
-
-      %p#text
 
     .reserv__step-3{class: (@has_error) ? ['visible', 'animate'] : '' }
       %h4 Leave your contacts
