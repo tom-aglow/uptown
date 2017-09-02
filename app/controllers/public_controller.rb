@@ -41,7 +41,7 @@ class PublicController < ApplicationController
     if @client.update_attributes(client_params) && flash[:errors].blank?
       @shift.update_attribute(:is_free, false)
       @requisition.save
-      flash[:notice] = 'Your reservation was successfully created.'
+      flash[:notice] = 'We reserve a seat for you. See you soon.'
       redirect_to(index_path)
     else
       render('reservation')

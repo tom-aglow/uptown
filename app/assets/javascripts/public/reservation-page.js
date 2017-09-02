@@ -1,5 +1,9 @@
 $(function () {
     //  Variables with DOM elements
+    let step1 = $('.reserv__step-1');
+    let step2 = $('.reserv__step-2');
+    let step3 = $('.reserv__step-3');
+
     let barbersImages = $('.barbers__img__cont');
     let barbersNames = $('.barbers__names span');
 
@@ -7,7 +11,7 @@ $(function () {
     let _shiftDate = $('#shift_date');
     let _shiftTime = $('#shift_time');
     let _shiftBarberID = $('#shift_barber_id');
-    let _reqServieID = $('#requisition_service_id');
+    let _reqServiceID = $('#requisition_service_id');
 
     //      UI elements for selecting date, time and service
     let shiftDateUI = $('#datepicker');
@@ -30,6 +34,7 @@ $(function () {
 
     //  On page load check if fields have some values after validation
     //      if so, preselect UI elements for user
+    //          barber and shift info
 
     if (_shiftBarberID.val() !== '') {
         let index = _shiftBarberID.val() - 1;
@@ -47,6 +52,29 @@ $(function () {
         }
     }
 
+    //          service info
+    if (_reqServiceID.val() !== '') {
+        shiftServiceUI.val(_reqServiceID.val());
+    }
+
+    //  Reservation tiles animation
+    step1.addClass('animate-1');
+
+    function animateSection2 () {
+        step1.addClass('animate-2');
+        setTimeout(function () {
+            step1.addClass('static');
+            step2.addClass('visible');
+            step3.addClass('visible');
+            setTimeout(function () {
+                step2.addClass('animate');
+            }, 100)
+        }, 500)
+    }
+
+    function animateSection3 () {
+        step3.addClass('animate');
+    }
 
     //  CLICK EVENT ON BARBER IMAGE & BARBER NAME
     barbersImages.click(function () {
@@ -60,6 +88,9 @@ $(function () {
 
         //  make ajax request to retrieve info about barbers availability
         getShiftsInfo(index + 1);
+
+        //  animate current and next section
+        animateSection2();
     });
 
     barbersNames.click(function () {
@@ -73,11 +104,19 @@ $(function () {
 
         //  make ajax request to retrieve info about barbers availability
         getShiftsInfo(index + 1);
+
+        //  animate current and next section
+        animateSection2();
     });
 
     //  EVENTS WHEN SERVICES SELECT BOX CHANGES ITS VALUE > UPDATE VALUES IN CORRESPONDENT FORM INPUT
     shiftServiceUI.change(function () {
-        _reqServieID.val($(this).val());
+        _reqServiceID.val($(this).val());
+
+        //  animate 3rd section if necessary
+        if ($('.time.active').length > 0) {
+            animateSection3();
+        }
     });
 
 
@@ -104,6 +143,11 @@ $(function () {
 
         //  add active class only for target element
         $this.addClass('active');
+
+        //  animate next section
+        if (shiftServiceUI.val() !== null) {
+            animateSection3();
+        }
     });
 
     //  FUNCTIONS

@@ -1,6 +1,9 @@
+- @page_title = 'Reservation'
+- @has_error = (@client && @client.errors.size > 0) || !flash[:errors].blank?
+
 %section.reservation
   .reserv__container
-    .reserv__step.step-1
+    .reserv__step-1{class: (@has_error) ? ['animate-1', 'animate-2', 'static'] : '' }
       .barbers__header
         %h4 Choose a barber
         %p or skip step
@@ -14,7 +17,7 @@
           .barbers__img__cont
             = image_tag("barbers/#{barber.avatar}", alt: 'uptown barbers avatar')
 
-    .reserv__step.step-2
+    .reserv__step-2{class: (@has_error) ? ['visible', 'animate'] : '' }
       %h4 Select service & time
 
       .input-container
@@ -34,7 +37,7 @@
 
       %p#text
 
-    .reserv__step.step-3
+    .reserv__step-3{class: (@has_error) ? ['visible', 'animate'] : '' }
       %h4 Leave your contacts
       = form_for(@shift, url: book_path, method: 'post') do |shift|
 
@@ -60,7 +63,7 @@
         = shift.submit('Make a reservation', class: ['btn', 'btn-submit'])
 
   -###  Modal with validation errors
-  - if (@client && @client.errors.size > 0) || !flash[:errors].blank?
+  - if @has_error
     .flash__error
       %p Cannot make a reservation because of the following problems:
       %ul.list-unstyled

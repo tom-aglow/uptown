@@ -15,7 +15,7 @@
   -#mobile nav
   %nav.navbar-mobile
     %div.page-header__btn
-      %a.btn.btn-primary Book now
+      = link_to('Book now', reservation_path, class: ['btn', 'btn-primary'])
     = render(partial: 'layouts/public/navbar')
     .page-header__phone
       %i.fa.fa-phone
