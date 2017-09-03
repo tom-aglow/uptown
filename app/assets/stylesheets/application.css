@@ -11,7 +11,7 @@
  * It is generally better to create a new file per style scope.
  *
  * require_tree .
- *= require public/public.scss
  *= require bootstrap-datepicker3
+ *= require public/public.scss
  *= require_self
  */

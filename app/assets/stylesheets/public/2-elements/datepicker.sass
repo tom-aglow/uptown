@@ -1,0 +1,28 @@
+.datepicker
+  border-radius: 0
+
+  table tr td,
+  table tr th
+    border-radius: 0
+
+    &.day
+      color: $color-brown-tone-3
+      &:hover
+        background-color: $color-grey-tone-1
+
+      &.active,
+      &.active:hover
+        background-color: $color-brown-tone-3
+        color: $color-grey-tone-1
+
+      &.disabled
+        color: $color-grey-tone-2
+        &:hover
+          background-color: transparent
+
+      &.today
+        background-color: $color-brown-tone-1
+        color: $color-grey-tone-1
+        &:hover
+          background-color: $color-brown-tone-2
+          color: $color-grey-tone-1
