@@ -41,6 +41,9 @@ $(function () {
         autoclose: true
     });
 
+    //  Phone mask input
+    $('#client_phone').mask('999.999.9999');
+
     //  On page load check if fields have some values after validation
     //      if so, preselect UI elements for user
     //          barber and shift info
@@ -247,8 +250,10 @@ $(function () {
                 //  auto select first available date & render time boxes for it
                 let startDate = new Date(shiftDates[shiftDates.length - 1] + ' 12:00:00 GMT-0700 (PDT)');
                 shiftDateUI.datepicker('update', startDate);
-                let availableTimesStart = shifts[shiftDates[shiftDates.length - 1]];
-                renderTimeBoxes(availableTimesStart);
+                _shiftDate.val(shiftDates[shiftDates.length - 1]);
+
+                // let availableTimesStart = shifts[shiftDates[shiftDates.length - 1]];
+                // renderTimeBoxes(availableTimesStart);
 
                 //  create time boxes if date was already selected
                 if (_shiftDate.val() !== '') {
@@ -257,6 +262,7 @@ $(function () {
 
                     //  and select time if it was selected in previous request
                     if (_shiftTime.val() !== '') {
+                        console.log('hi');
                         $('*[data-time="' + _shiftTime.val() + '"]').addClass('active');
                     }
                 }

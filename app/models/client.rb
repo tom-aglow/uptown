@@ -5,7 +5,7 @@ class Client < ApplicationRecord
 
   # Validation
   EMAIL_REGEX = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[a-z]{2,}/i
-  PHONE_REGEX = /1\d{10}/
+  PHONE_REGEX = /\d{3}.\d{3}.\d{4}/
 
   validates :full_name, presence: true,
             length: {maximum: 50}

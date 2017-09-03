@@ -3,7 +3,7 @@ class CreateClients < ActiveRecord::Migration[5.1]
     create_table :clients do |t|
       t.string 'full_name', limit: 50, null: false
       t.string 'email', limit: 50, null: false
-      t.string 'phone', limit: 11, null: false
+      t.string 'phone', limit: 12, null: false
       t.timestamps
     end
 

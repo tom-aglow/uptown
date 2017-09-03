@@ -41,7 +41,7 @@ services = {
     'Haircut & Beard Trim' => 45,
     'Shaves' => 40,
     'Student / Senior Cuts' => 30,
-    'Kids Cut' => 25,
+    'Kids Cut' => 25
 }
 
 services.each do |name, price|
@@ -51,14 +51,12 @@ end
 
 
 # === CLIENTS ===
-
 20.times do
   Client.create(full_name: Faker::Name.name,
                 email: Faker::Internet.free_email,
-                phone: '1' + Faker::Number.number(10).to_s
+                phone: [Faker::Number.number(3), Faker::Number.number(3), Faker::Number.number(4)].join('.')
   )
 end
-
 
 # === SHIFTS: LAMBDAS ===
 

@@ -67,3 +67,4 @@ gem 'haml', '~> 5.0', '>= 5.0.2'
 gem "haml-rails", "~> 1.0.0"
 gem 'font-awesome-sass'
 gem 'bootstrap-datepicker-rails'
+gem 'maskedinput-rails'
