@@ -206,7 +206,6 @@ $(function () {
 
     //  === set default date of datepicker and remove all time elements
     function setDefaultView () {
-        shiftDateUI.datepicker('update', new Date());
         timesUI.empty();
         _shiftDate.val('');
         _shiftTime.val('');
@@ -244,6 +243,12 @@ $(function () {
                 shiftDates = Object.keys(shifts);
 
                 setAvailableDates();
+
+                //  auto select first available date & render time boxes for it
+                let startDate = new Date(shiftDates[shiftDates.length - 1] + ' 12:00:00 GMT-0700 (PDT)');
+                shiftDateUI.datepicker('update', startDate);
+                let availableTimesStart = shifts[shiftDates[shiftDates.length - 1]];
+                renderTimeBoxes(availableTimesStart);
 
                 //  create time boxes if date was already selected
                 if (_shiftDate.val() !== '') {

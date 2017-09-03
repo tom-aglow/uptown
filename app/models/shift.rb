@@ -11,11 +11,16 @@ class Shift < ApplicationRecord
     joins("INNER JOIN (
               SELECT shifts.date, shifts.time, max(shifts.barber_id) as 'barber_id'
               FROM shifts
+              WHERE shifts.date >= CURDATE() and shifts.is_free = true
               GROUP BY shifts.date, shifts.time
             ) b
-            ON shifts.date = b.date AND shifts.time = b.time AND shifts.barber_id = b.barber_id")
+            ON shifts.date = b.date AND shifts.time = b.time AND shifts.barber_id = b.barber_id
+            WHERE shifts.date >= CURDATE() AND shifts.is_free = true
+            ORDER BY shifts.date DESC, shifts.time ASC
+")
+
   end
-  scope :all_available_for_barber, -> (barber_id) { where(is_free: true, barber_id: barber_id).where('date >= ?', Date.current).order(date: :desc) }
+  scope :all_available_for_barber, -> (barber_id) { where(barber_id: barber_id).all_available }
 
   # Validation
   validates :date, presence: true
