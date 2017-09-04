@@ -60,7 +60,7 @@ gem 'autoprefixer-rails'
 # JavaScript libraries
 gem 'jquery-rails'
 
-# my gems
+# My gems
 gem 'acts_as_list', '~> 0.7.6'
 gem 'faker', '~> 1.6', '>= 1.6.6'
 gem 'haml', '~> 5.0', '>= 5.0.2'
@@ -68,3 +68,10 @@ gem "haml-rails", "~> 1.0.0"
 gem 'font-awesome-sass'
 gem 'bootstrap-datepicker-rails'
 gem 'maskedinput-rails'
+
+
+# Deployment
+gem 'capistrano', '~> 3.7', '>= 3.7.1'
+gem 'capistrano-rails', '~> 1.2'
+gem 'capistrano-passenger', '~> 0.2.0'
+gem 'capistrano-rbenv', '~> 2.1'

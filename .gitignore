@@ -26,3 +26,5 @@ tmp/
 # Ignore design files.
 
 design/
+config/database.yml
+config/secrets.yml
