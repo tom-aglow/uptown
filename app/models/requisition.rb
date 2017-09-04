@@ -6,4 +6,7 @@ class Requisition < ApplicationRecord
   belongs_to :service
   has_one :testimonial
 
+  def send_confirmation!
+
+  end
 end

@@ -1,27 +1,20 @@
 class Barber < ApplicationRecord
 
   # Relationships
-  has_many :shifts
+  has_many  :shifts
+  has_many :requisitions, through: :shifts
+  has_many :testimonials, through: :requisitions
+
+  #Scopes
+  scope :done_requisitions, -> { requisitions.where(status: 'paid') }
 
   # Additional properties
   def aver_grade
-    grades = []
-    shifts.each do |shift|
-      unless shift.requisition.nil?
-        grades << shift.requisition.testimonial.grade unless shift.requisition.testimonial.nil?
-      end
-    end
-    grades.inject { |sum, el| sum + el }.to_f / grades.size
+    sprintf('%.1f',testimonials.inject(0){ |sum, el| sum + el.grade }.to_f / testimonials.size) unless testimonials.size == 0
   end
 
   def amount_of_cuts
-    cuts = 0
-    shifts.each do |shift|
-      unless shift.requisition.nil?
-        cuts += 1 if shift.requisition.status == 'paid'
-      end
-    end
-    return cuts
+    requisitions.where(status: 'paid').count
   end
 
   # TODO eager load necessary data for aver_grade and amount_of_cuts methods
