@@ -68,3 +68,4 @@ gem "haml-rails", "~> 1.0.0"
 gem 'font-awesome-sass'
 gem 'bootstrap-datepicker-rails'
 gem 'maskedinput-rails'
+gem 'sucker_punch', '~> 2.0', '>= 2.0.2'
