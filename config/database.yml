@@ -10,12 +10,11 @@
 #   http://dev.mysql.com/doc/refman/5.7/en/old-client.html
 #
 default: &default
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: user
+  username: uptown
   password: uptownbarber
-  socket: /tmp/mysql.sock
 
 development:
   <<: *default
@@ -49,7 +48,7 @@ test:
 #
 production:
   adapter: postgresql
-  encoding: unicode
+  encoding: utf8
   database: uptown_production
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: uptown

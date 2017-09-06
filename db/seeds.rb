@@ -9,7 +9,7 @@
 # ::: METHODS :::
 
 def get_random_record_id(model)
-  Rails.env.production? ? model.limit(1).order("RANDOM()").first.id : model.limit(1).order("RAND()").first.id
+  model.limit(1).order("RANDOM()").first.id
 end
 
 
@@ -97,7 +97,7 @@ barbers_num.times do |i|
   # --- ORDERS ---
 
   20.times do
-    shift_record = Rails.env.production? ? Shift.where(barber_id: i + 1).limit(1).order("RANDOM()").first : Shift.where(barber_id: i + 1).limit(1).order("RAND()").first
+    shift_record = Shift.where(barber_id: i + 1).limit(1).order("RANDOM()").first
 
     req_date = Time.parse(shift_record.date.to_s)
 
