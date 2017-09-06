@@ -9,7 +9,11 @@
 # ::: METHODS :::
 
 def get_random_record_id(model)
-  model.limit(1).order("RAND()").first.id
+  if ENV["RAILS_ENV"] == 'production'
+    model.limit(1).order("RANDOM()").first.id
+  else
+    model.limit(1).order("RAND()").first.id
+  end
 end
 
 
