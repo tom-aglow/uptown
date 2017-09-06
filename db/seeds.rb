@@ -9,11 +9,7 @@
 # ::: METHODS :::
 
 def get_random_record_id(model)
-  if ENV["RAILS_ENV"] == 'production'
-    model.limit(1).order("RANDOM()").first.id
-  else
-    model.limit(1).order("RAND()").first.id
-  end
+  Rails.env.production? ? model.limit(1).order("RANDOM()").first.id : model.limit(1).order("RAND()").first.id
 end
 
 
@@ -101,16 +97,16 @@ barbers_num.times do |i|
   # --- ORDERS ---
 
   20.times do
-    shift_record = Shift.where(barber_id: i + 1).limit(1).order("RAND()").first
+    shift_record = Rails.env.production? ? Shift.where(barber_id: i + 1).limit(1).order("RANDOM()").first : Shift.where(barber_id: i + 1).limit(1).order("RAND()").first
 
     req_date = Time.parse(shift_record.date.to_s)
 
     req_record = Requisition.create(client_id: 1 + rand(19),
-                         service_id: 1 + rand(6),
-                         shift_id: shift_record.id,
-                         status: 'booked',
-                         created_at: req_date,
-                         updated_at: req_date
+                                    service_id: 1 + rand(6),
+                                    shift_id: shift_record.id,
+                                    status: 'booked',
+                                    created_at: req_date,
+                                    updated_at: req_date
     )
 
     shift_record.update_attributes(is_free: false)
@@ -135,18 +131,18 @@ end
 
   # creating an order record
   req_record = Requisition.create(client_id: get_random_record_id(Client),
-                      service_id: get_random_record_id(Service),
-                      shift_id: shift_record.id,
-                      status: 'paid',
-                      created_at: req_date,
-                      updated_at: req_date
+                                  service_id: get_random_record_id(Service),
+                                  shift_id: shift_record.id,
+                                  status: 'paid',
+                                  created_at: req_date,
+                                  updated_at: req_date
   )
 
   # creating testimonial record
   Testimonial.create(requisition_id: req_record.id,
-                 body: Faker::Hipster.paragraph(1),
-                 grade: rand(4..5),
-                 created_at: testimonial_date,
-                 updated_at: testimonial_date
+                     body: Faker::Hipster.paragraph(1),
+                     grade: rand(4..5),
+                     created_at: testimonial_date,
+                     updated_at: testimonial_date
   )
 end
