@@ -8,8 +8,8 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'
-# Use mysql as the database for Active Record
-gem 'mysql2', '>= 0.3.18', '< 0.5'
+# Use postgresql as the database for Active Record
+gem 'pg', '~> 0.21.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -60,7 +60,7 @@ gem 'autoprefixer-rails'
 # JavaScript libraries
 gem 'jquery-rails'
 
-# my gems
+# My gems
 gem 'acts_as_list', '~> 0.7.6'
 gem 'faker', '~> 1.6', '>= 1.6.6'
 gem 'haml', '~> 5.0', '>= 5.0.2'
@@ -68,4 +68,10 @@ gem "haml-rails", "~> 1.0.0"
 gem 'font-awesome-sass'
 gem 'bootstrap-datepicker-rails'
 gem 'maskedinput-rails'
+
 gem 'sucker_punch', '~> 2.0', '>= 2.0.2'
+
+
+
+# Deployment
+

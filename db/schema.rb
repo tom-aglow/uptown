@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20170828173220) do
 
-  create_table "barbers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "barbers", force: :cascade do |t|
     t.string "first_name", limit: 30, null: false
     t.string "last_name", limit: 30, null: false
     t.string "avatar", limit: 100, default: "default.jpg", null: false
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170828173220) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "clients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "clients", force: :cascade do |t|
     t.string "full_name", limit: 50, null: false
     t.string "email", limit: 50, null: false
     t.string "phone", limit: 12, null: false
@@ -29,26 +32,24 @@ ActiveRecord::Schema.define(version: 20170828173220) do
     t.index ["email"], name: "index_clients_on_email", unique: true
   end
 
-  create_table "requisitions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "requisitions", force: :cascade do |t|
     t.bigint "client_id", null: false
     t.bigint "service_id", null: false
     t.bigint "shift_id", null: false
     t.string "status", limit: 20, default: "new", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "fk_rails_a0ecb3a1ed"
-    t.index ["service_id"], name: "fk_rails_2244a7d996"
     t.index ["shift_id", "client_id", "service_id"], name: "index_requisitions_on_shift_id_and_client_id_and_service_id"
   end
 
-  create_table "services", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "services", force: :cascade do |t|
     t.string "name", limit: 30, null: false
     t.integer "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "shifts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "shifts", force: :cascade do |t|
     t.date "date", null: false
     t.string "time", limit: 8, null: false
     t.bigint "barber_id", null: false
@@ -59,7 +60,7 @@ ActiveRecord::Schema.define(version: 20170828173220) do
     t.index ["date", "time", "barber_id"], name: "index_shifts_on_date_and_time_and_barber_id", unique: true
   end
 
-  create_table "testimonials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "testimonials", force: :cascade do |t|
     t.bigint "requisition_id", null: false
     t.text "body", null: false
     t.integer "grade", default: 1, null: false
@@ -68,7 +69,7 @@ ActiveRecord::Schema.define(version: 20170828173220) do
     t.index ["requisition_id"], name: "index_testimonials_on_requisition_id", unique: true
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string "username", limit: 30, null: false
     t.string "email", default: "", null: false
     t.string "password_digest", null: false
