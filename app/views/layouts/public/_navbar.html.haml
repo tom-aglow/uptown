@@ -1,11 +1,11 @@
 %ul.nav
   %li.nav-item
-    %a.nav-link{href: '/#hero'} Home
+    = link_to 'Home', root_path(anchor: 'hero'), class: ['nav-link']
   %li.nav-item
-    %a.nav-link{href: '/#about'} What we are
+    = link_to 'What we are', root_path(anchor: 'about'), class: ['nav-link']
   %li.nav-item
-    %a.nav-link{href: '/#team'} Who we are
+    = link_to 'Who we are', root_path(anchor: 'team'), class: ['nav-link']
   %li.nav-item
-    %a.nav-link{href: '/#services'} What we do
+    = link_to 'What we do', root_path(anchor: 'services'), class: ['nav-link']
   %li.nav-item
-    %a.nav-link{href: '/#contacts'} Where we are
+    = link_to 'Where we are', root_path(anchor: 'contacts'), class: ['nav-link']

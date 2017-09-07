@@ -1,5 +1,40 @@
-%h1 Hello, #{@client.full_name}
-%h3 This is a confirmation of your reservation at Uptown Barber
-%p Date #{@req.shift.date}
-%p Time #{@req.shift.time}
-%p Barber name #{@req.barber.first_name}
+%header
+  = image_tag('logo.svg', alt: 'uptown barbers logo', class: ['logo'])
+  %p.contacts
+    2341 Main Street
+    %br
+    604.314.5627
+
+%main.container
+  %p Hello, #{@client.full_name}
+  %p Thank you for your booking at Uptown Barbers. This is just confirmation letter of your appointment, please do not reply on this email.
+
+  .req-info
+    .avatar
+      = image_tag("barbers/#{@req.barber.avatar}", alt: 'uptown barbers avatar')
+    .req-details
+      %p
+        Barber:
+        %span.text-highlighted #{@req.barber.first_name}
+      %p
+        Service:
+        %span.text-highlighted #{@req.service.name}
+      %p
+        Price:
+        %span.text-highlighted $ #{@req.service.price}
+      %p
+        Date:
+        %span.text-highlighted #{@req.shift.date.to_formatted_s(:long_ordinal)}
+      %p
+        Time:
+        %span.text-highlighted #{@req.shift.time.to_time.strftime("%I:%M %p")}
+
+  %p.req-cancel
+    If you’d like to cancel your reservation, please follow the
+    = link_to('link', reservation_url, class: ['text-highlighted', 'link-primary'])
+    = '.'
+
+  %p
+    = link_to('The Uptown Barbers Team', index_url, class: ['text-highlighted', 'link-primary'])
+
+%footer

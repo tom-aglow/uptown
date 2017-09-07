@@ -2,8 +2,62 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <style>
-      /* Email styles need to be inline */
+        body {
+            font-family: "Open Sans", Arial, sans-serif;
+        }
+
+        /*HEADER & FOOTER*/
+        header, footer {
+            background-color: #3A3732;
+            color: #E0E2E5;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 20px 0;
+        }
+        header p {
+            margin: 0;
+        }
+        footer {
+            height: 30px;
+        }
+        .contacts {
+            margin-top: 15px;
+        }
+
+        /*MAIN CONTAINER*/
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 50px;
+            font-size: 0.9rem;
+        }
+        .avatar {
+            width: 100px;
+            height: 250px;
+            overflow: hidden;
+            float: left;
+            margin-bottom: 40px;
+        }
+        .avatar img {
+            width: 200%;
+            margin-left: -30px;
+            object-fit: cover;
+        }
+        .req-info {
+            margin-top: 40px;
+        }
+        .req-info + p {
+            clear: both;
+        }
+        .req-details {
+            padding-left: 140px;
+            padding-top: 10px;
+        }
+        .text-highlighted {
+            color: #635850;
+        }
     </style>
   </head>
 
