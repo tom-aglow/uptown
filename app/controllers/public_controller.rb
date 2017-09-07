@@ -20,6 +20,7 @@ class PublicController < ApplicationController
                          barber_id: params[:shift][:barber_id]).first
 
     @client = Client.find_or_initialize_by(email: params[:client][:email])
+    is_client_saved = @client.update_attributes(client_params)
 
     @requisition = Requisition.new(req_params)
 
@@ -38,9 +39,8 @@ class PublicController < ApplicationController
       (flash[:errors] ||= []) << 'Please select a service'
     end
 
-    if @client.update_attributes(client_params) && flash[:errors].blank?
+    if is_client_saved && flash[:errors].blank? && @requisition.save
       @shift.update_attribute(:is_free, false)
-      @requisition.save
       @requisition.send_confirmation
       flash[:notice] = 'We\'ve reserved a seat for you. See you soon.'
       redirect_to(index_path)
