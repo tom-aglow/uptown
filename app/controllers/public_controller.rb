@@ -51,16 +51,12 @@ class PublicController < ApplicationController
 
   def booking_info
     if params[:barber_id].blank?
-      @shifts_available = Shift.group_shifts_by_date_and_time
+      @shifts_available = reformat_shifts_array(Shift.all_available_grouped_by_date_and_time)
     else
       @shifts_available = Shift.all_available_for_barber(params[:barber_id])
     end
 
-    if request.xhr?
-      render :json => {
-          :shifts => @shifts_available
-      }
-    end
+    render json: { shifts: @shifts_available } if request.xhr?
   end
 
   private
@@ -88,5 +84,12 @@ class PublicController < ApplicationController
 
   def get_services_list
     @services = Service.all()
+  end
+
+  def reformat_shifts_array(shifts)
+    col = []
+    shifts.each do |shift|
+      col << { date: shift[0][0], time: shift[0][1], barber_id: shift[1] }
+    end
   end
 end
