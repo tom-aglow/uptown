@@ -1,5 +1,5 @@
 %header
-  = image_tag('logo.svg', alt: 'uptown barbers logo', class: ['logo'])
+  = image_tag(image_url('logo.svg'), alt: 'uptown barbers logo', class: ['logo'])
   %p.contacts
     2341 Main Street
     %br
@@ -11,7 +11,7 @@
 
   .req-info
     .avatar
-      = image_tag("barbers/#{@req.barber.avatar}", alt: 'uptown barbers avatar')
+      = image_tag(image_url("barbers/#{@req.barber.avatar}"), alt: 'uptown barbers avatar')
     .req-details
       %p
         Barber:
