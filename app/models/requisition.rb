@@ -7,8 +7,9 @@ class Requisition < ApplicationRecord
   belongs_to :service
   has_one :testimonial
 
+  # Sending emails methods
   def send_confirmation
-    ConfirmationMailer.requisition_confirmation(client, self).deliver_later
+    RequisitionMailer.requisition_confirmation(client, self).deliver_later
   end
 
   def shedule_reminder

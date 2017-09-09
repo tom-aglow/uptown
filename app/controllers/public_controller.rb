@@ -44,7 +44,7 @@ class PublicController < ApplicationController
       @requisition.send_confirmation
       @requisition.shedule_reminder
       flash[:notice] = 'We\'ve reserved a seat for you and sent you the email with details of your booking. See you soon.'
-      redirect_to(index_path)
+      redirect_to(root_path)
     else
       render('reservation')
     end
