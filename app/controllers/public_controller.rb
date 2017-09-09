@@ -42,7 +42,8 @@ class PublicController < ApplicationController
     if is_client_saved && flash[:errors].blank? && @requisition.save
       @shift.update_attribute(:is_free, false)
       @requisition.send_confirmation
-      flash[:notice] = 'We\'ve reserved a seat for you. See you soon.'
+      @requisition.shedule_reminder
+      flash[:notice] = 'We\'ve reserved a seat for you and sent you the email with details of your booking. See you soon.'
       redirect_to(index_path)
     else
       render('reservation')
