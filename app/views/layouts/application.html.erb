@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Uptown barbers | <%= @page_title || 'Index' %></title>
+        <title><%= full_title(yield(:title)) %></title>
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
