@@ -71,7 +71,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'maskedinput-rails'
 
 gem 'sucker_punch', '~> 2.0', '>= 2.0.2'
-
+gem 'webpacker', '~> 3.0'
 
 
 # Deployment
