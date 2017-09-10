@@ -7,8 +7,13 @@ Rails.application.routes.draw do
   post 'reservation', to: 'public#book', as: 'book'
   get 'booking_info', to: 'public#booking_info'
 
+  # Admin routes
   get 'admin', to: 'admin#index', as: 'admin_root'
   namespace :admin do
+    get 'access/login', as: 'login'
+    post 'access/attempt_login', as: 'attempt_login'
+    get 'access/logout', as: 'logout'
+
     resources :barbers
   end
 end
