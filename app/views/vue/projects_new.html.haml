@@ -10,7 +10,7 @@
   = f.label :description
   = f.text_field :description, 'v-model': 'form.description'
   %br
-  = f.submit 'Create project', 'v-bind:disabled': 'false'
+  %input{type: 'submit', name: 'commit'}
 
 %p{'v-text': 'form.errors.get("name")'}
 %p{'v-text': 'form.errors.get("description")'}
