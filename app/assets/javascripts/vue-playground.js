@@ -22,14 +22,56 @@ class Errors {
   }
 
   clear(id) {
-    let field = id.split('_')[1];
-    delete this.errors[field];
+    if (id) {
+      let field = id.split('_')[1];
+      delete this.errors[field];
+    } else {
+      this.errors = {}
+    }
   }
 }
 
 class Form {
-  reset() {
+  constructor(data) {
+    this.originalData = data;
 
+    for (let field in data) {
+      this[field] = data[field];
+    }
+
+    this.errors = new Errors()
+  }
+
+  data() {
+    //  clone the object
+    let data = Object.assign({}, this);
+
+    delete data.originalData;
+    delete data.errors;
+
+    return data;
+  }
+
+  reset() {
+    for (let field in this.originalData) {
+      this[field] = '';
+    }
+  }
+
+  submit(requestType, url) {
+    axios[requestType.toLowerCase()](url, {project: this.data()})
+        .then(this.onSuccess.bind(this))
+        .catch(this.onFail.bind(this))
+  }
+
+  onSuccess(response) {
+    console.log(response.data.message);
+    this.errors.clear();
+    this.reset();
+  }
+
+  onFail(error) {
+    this.errors.record(error.response.data)
   }
 }
 
@@ -38,9 +80,10 @@ new Vue({
 
   data: {
     skills: [],
-    name: '',
-    description: '',
-    errors: new Errors()
+    form: new Form({
+      name: '',
+      description: '',
+    }),
   },
 
   mounted() {
@@ -49,15 +92,7 @@ new Vue({
 
   methods: {
     onSubmit() {
-      axios.post('/vue-playground/projects', {project: this.$data})
-          .then(this.onSuccess)
-          .catch(error => this.errors.record(error.response.data))
-    },
-
-    onSuccess() {
-      console.log(response.message);
-      this.name = '';
-      this.description = '';
+      this.form.submit('POST', '/vue-playground/projects');
     }
   }
 })

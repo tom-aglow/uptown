@@ -3,14 +3,14 @@
 
 %hr
 
-= form_for @project, url: projects_path, html: {'v-on:submit.prevent': 'onSubmit', 'v-on:keydown': 'errors.clear($event.target.id)'} do |f|
+= form_for @project, url: projects_path, html: {'v-on:submit.prevent': 'onSubmit', 'v-on:keydown': 'form.errors.clear($event.target.id)'} do |f|
   = f.label :name
-  = f.text_field :name, 'v-model': 'name'
+  = f.text_field :name, 'v-model': 'form.name'
   %br
   = f.label :description
-  = f.text_field :description, 'v-model': 'description'
+  = f.text_field :description, 'v-model': 'form.description'
   %br
   = f.submit 'Create project', 'v-bind:disabled': 'false'
 
-%p{'v-text': 'errors.get("name")'}
-%p{'v-text': 'errors.get("description")'}
+%p{'v-text': 'form.errors.get("name")'}
+%p{'v-text': 'form.errors.get("description")'}
