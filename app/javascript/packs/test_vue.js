@@ -2,12 +2,18 @@ import Vue from 'vue/dist/vue.js'
 import axios from 'axios'
 
 import Form from '../core/Form'
+import Example from '../components/Example'
 
-
+window.axios = axios;
+window.Form = Form;
 
 document.addEventListener('turbolinks:load', () => {
   const app = new Vue({
     el: '#app',
+
+    components: {
+      Example
+    },
 
     data: {
       skills: [],
