@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <%= csrf_meta_tags %>
+</head>
+
+<body>
+
+    <%= yield %>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@2.4.2/dist/vue.js"></script>
+    <%= javascript_include_tag 'vue-playground', 'data-turbolinks-track': 'reload' %>
+</body>
+</html>
