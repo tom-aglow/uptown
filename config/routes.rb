@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get 'vue-playground', to: 'vue#index'
   get 'vue-playground/skills', to: 'vue#skills'
+  get 'vue-playground/projects/new', to: 'vue#projects_new'
+  post 'vue-playground/projects', to: 'vue#projects_create', as: 'projects'
 
   get 'index', to: 'public#index'
   get 'reservation', to: 'public#reservation'

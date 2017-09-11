@@ -1,0 +1,16 @@
+- @projects.each do |project|
+  %p #{project.name}
+
+%hr
+
+= form_for @project, url: projects_path, html: {'v-on:submit.prevent': 'onSubmit', 'v-on:keydown': 'errors.clear($event.target.id)'} do |f|
+  = f.label :name
+  = f.text_field :name, 'v-model': 'name'
+  %br
+  = f.label :description
+  = f.text_field :description, 'v-model': 'description'
+  %br
+  = f.submit 'Create project', 'v-bind:disabled': 'false'
+
+%p{'v-text': 'errors.get("name")'}
+%p{'v-text': 'errors.get("description")'}

@@ -11,7 +11,9 @@
 
 <body>
 
-    <%= yield %>
+    <div id="app">
+        <%= yield %>
+    </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@2.4.2/dist/vue.js"></script>
     <%= javascript_include_tag 'vue-playground', 'data-turbolinks-track': 'reload' %>
