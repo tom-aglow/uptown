@@ -43,11 +43,11 @@ class Form {
   }
 
   data() {
-    //  clone the object
-    let data = Object.assign({}, this);
+    let data = {};
 
-    delete data.originalData;
-    delete data.errors;
+    for (let property in this.originalData) {
+      data[property] = this[property];
+    }
 
     return data;
   }
@@ -56,22 +56,30 @@ class Form {
     for (let field in this.originalData) {
       this[field] = '';
     }
+    this.errors.clear();
   }
 
   submit(requestType, url) {
-    axios[requestType.toLowerCase()](url, {project: this.data()})
-        .then(this.onSuccess.bind(this))
-        .catch(this.onFail.bind(this))
+    return new Promise((resolve, reject) => {
+      axios[requestType.toLowerCase()](url, {project: this.data()})
+          .then(response => {
+            this.onSuccess(response.data);
+            resolve(response.data);
+          })
+          .catch(error => {
+            this.onFail(error.response.data);
+            reject(error.response.data);
+          })
+    })
   }
 
-  onSuccess(response) {
-    console.log(response.data.message);
-    this.errors.clear();
+  onSuccess(data) {
+    console.log(data.message);
     this.reset();
   }
 
-  onFail(error) {
-    this.errors.record(error.response.data)
+  onFail(errors) {
+    this.errors.record(errors)
   }
 }
 
@@ -92,7 +100,9 @@ new Vue({
 
   methods: {
     onSubmit() {
-      this.form.submit('POST', '/vue-playground/projects');
+      this.form.submit('POST', '/vue-playground/projects')
+          .then(data => console.log(data))
+          .catch(errors => console.log(errors));
     }
   }
 })
