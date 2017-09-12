@@ -30,7 +30,7 @@ class Form {
 
   submit(requestType, url) {
     return new Promise((resolve, reject) => {
-      axios[requestType.toLowerCase()](url, {project: this.data()})
+      axios[requestType.toLowerCase()](url, this.data())
           .then(response => {
             this.onSuccess(response.data);
             resolve(response.data);
@@ -38,12 +38,11 @@ class Form {
           .catch(error => {
             this.onFail(error.response.data);
             reject(error.response.data);
-          })
-    })
+          });
+    });
   }
 
   onSuccess(data) {
-    console.log(data.message);
     this.reset();
   }
 

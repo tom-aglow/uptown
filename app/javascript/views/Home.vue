@@ -9,15 +9,20 @@
                     </div>
                     <div class="message-body" v-text="status.body">Example</div>
                 </div>
+                <add-to-stream @completed="addStatus"></add-to-stream>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-  import Status from '../models/Status'
+  import Status from '../models/Status';
+  import AddToStream from '../components/AddToStream.vue';
 
   export default {
+
+    components: { AddToStream },
+
     data() {
       return {
         statuses: []
@@ -35,7 +40,10 @@
     },
 
     methods: {
-
+        addStatus(status) {
+          this.statuses.unshift(status);
+          window.scrollTo(0, 0);
+        }
     }
   }
 </script>

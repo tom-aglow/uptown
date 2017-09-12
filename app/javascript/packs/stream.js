@@ -3,9 +3,11 @@ import axios from 'axios';
 import VueRouter from 'vue-router';
 
 import router from './routes.js';
+import Form from '../core/Form';
 
 window.Vue = Vue;
 window.axios = axios;
+window.Form = Form;
 
 Vue.use(VueRouter);
 

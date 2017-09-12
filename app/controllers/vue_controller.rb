@@ -34,7 +34,13 @@ class VueController < ApplicationController
   end
 
   def stream_statuses_create
-
+    @user = User.find(1)
+    @status = @user.statuses.new(body: params[:body])
+    if @status.save
+      render json: @status.to_json(include: { user: { only: :username } })
+    else
+      render json: @status.errors, status: :unprocessable_entity
+    end
   end
 
   private
