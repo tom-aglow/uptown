@@ -1,18 +1,21 @@
-%example
+#app
+  %example
 
-- @projects.each do |project|
-  %p #{project.name}
+  - @projects.each do |project|
+    %p #{project.name}
 
-%hr
+  %hr
 
-= form_for @project, url: projects_path, html: {'v-on:submit.prevent': 'onSubmit', 'v-on:keydown': 'form.errors.clear($event.target.id)'} do |f|
-  = f.label :name
-  = f.text_field :name, 'v-model': 'form.name'
-  %br
-  = f.label :description
-  = f.text_field :description, 'v-model': 'form.description'
-  %br
-  %input{type: 'submit', name: 'commit'}
+  = form_for @project, url: projects_path, html: {'v-on:submit.prevent': 'onSubmit', 'v-on:keydown': 'form.errors.clear($event.target.id)'} do |f|
+    = f.label :name
+    = f.text_field :name, 'v-model': 'form.name'
+    %br
+    = f.label :description
+    = f.text_field :description, 'v-model': 'form.description'
+    %br
+    %input{type: 'submit', name: 'commit'}
 
-%p{'v-text': 'form.errors.get("name")'}
-%p{'v-text': 'form.errors.get("description")'}
+  %p{'v-text': 'form.errors.get("name")'}
+  %p{'v-text': 'form.errors.get("description")'}
+
+= javascript_pack_tag 'test_vue'

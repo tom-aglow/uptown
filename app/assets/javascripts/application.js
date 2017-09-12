@@ -17,5 +17,6 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require maskedinput
+//= require moment
 //= require public/public
 // require_tree .

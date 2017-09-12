@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170911002427) do
+ActiveRecord::Schema.define(version: 20170912033937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,14 @@ ActiveRecord::Schema.define(version: 20170911002427) do
     t.index ["date", "time", "barber_id"], name: "index_shifts_on_date_and_time_and_barber_id", unique: true
   end
 
+  create_table "statuses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_statuses_on_user_id"
+  end
+
   create_table "testimonials", force: :cascade do |t|
     t.bigint "requisition_id", null: false
     t.text "body", null: false
@@ -89,5 +97,6 @@ ActiveRecord::Schema.define(version: 20170911002427) do
   add_foreign_key "requisitions", "services"
   add_foreign_key "requisitions", "shifts"
   add_foreign_key "shifts", "barbers"
+  add_foreign_key "statuses", "users"
   add_foreign_key "testimonials", "requisitions"
 end

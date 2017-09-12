@@ -69,6 +69,7 @@ gem "haml-rails", "~> 1.0.0"
 gem 'font-awesome-sass'
 gem 'bootstrap-datepicker-rails'
 gem 'maskedinput-rails'
+gem 'momentjs-rails', '~> 2.17', '>= 2.17.1'
 
 gem 'sucker_punch', '~> 2.0', '>= 2.0.2'
 gem 'webpacker', '~> 3.0'
