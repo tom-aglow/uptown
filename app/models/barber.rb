@@ -16,6 +16,4 @@ class Barber < ApplicationRecord
   def amount_of_cuts
     requisitions.where(status: 'paid').count
   end
-
-  # TODO eager load necessary data for aver_grade and amount_of_cuts methods
 end

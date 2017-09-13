@@ -4,7 +4,7 @@ class PublicController < ApplicationController
   before_action :get_services_list, only: [:index, :reservation, :book]
 
   def index
-    @testimonials = Testimonial.latest.limit(5)
+    @testimonials = Testimonial.includes(requisition: [:client]).latest.limit(5)
   end
 
   def reservation
@@ -80,11 +80,11 @@ class PublicController < ApplicationController
   end
 
   def get_barbers_list
-    @barbers = Barber.all()
+    @barbers = Barber.all
   end
 
   def get_services_list
-    @services = Service.all()
+    @services = Service.all
   end
 
   def reformat_shifts_array(shifts)
