@@ -7,7 +7,19 @@ class Requisition < ApplicationRecord
   belongs_to :service
   has_one :testimonial
 
+  # Sending emails methods
   def send_confirmation
-    ConfirmationMailer.requisition_confirmation(client, self).deliver_later
+    RequisitionMailer.requisition_confirmation(client, self).deliver_later
+  end
+
+  def shedule_reminder
+    Time.zone = 'America/Vancouver'
+    shift = self.shift
+
+    # Reminder should be sent one day before appointment
+    time_to_send = Time.parse(shift.date.to_s + ' ' + shift.time) - Time.now - (24 * 60 * 60)
+
+    # Send a reminder only if there is more than 6 hours left before client visit
+    EmailReminderJob.perform_in(time_to_send, client, self) if time_to_send > 6 * 60 * 60
   end
 end

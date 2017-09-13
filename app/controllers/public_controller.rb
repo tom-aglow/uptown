@@ -4,7 +4,7 @@ class PublicController < ApplicationController
   before_action :get_services_list, only: [:index, :reservation, :book]
 
   def index
-    @testimonials = Testimonial.latest.limit(5)
+    @testimonials = Testimonial.includes(requisition: [:client]).latest.limit(5)
   end
 
   def reservation
@@ -42,8 +42,9 @@ class PublicController < ApplicationController
     if is_client_saved && flash[:errors].blank? && @requisition.save
       @shift.update_attribute(:is_free, false)
       @requisition.send_confirmation
-      flash[:notice] = 'We\'ve reserved a seat for you. See you soon.'
-      redirect_to(index_path)
+      @requisition.shedule_reminder
+      flash[:notice] = 'We\'ve reserved a seat for you and sent you the email with details of your booking. See you soon.'
+      redirect_to(root_path)
     else
       render('reservation')
     end
@@ -79,11 +80,11 @@ class PublicController < ApplicationController
   end
 
   def get_barbers_list
-    @barbers = Barber.all()
+    @barbers = Barber.all
   end
 
   def get_services_list
-    @services = Service.all()
+    @services = Service.all
   end
 
   def reformat_shifts_array(shifts)
