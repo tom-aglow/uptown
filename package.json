@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "yarn": "^1.0.1"
+  },
   "name": "uptown",
   "private": true,
   "dependencies": {
