@@ -7,11 +7,17 @@
 
     <body>
         <%= debug(params) if Rails.env.development? %>
-        <% unless flash[:notice].blank? %>
-        <div class="flash__notice">
-            <%= flash[:notice] %>
+
+        <div id="app">
+            <% unless flash[:notice].blank? %>
+              <div class="flash__notice">
+                  <%= flash[:notice] %>
+              </div>
+            <% end %>
+
+            <%= yield %>
         </div>
-        <% end %>
-        <%= yield %>
+
+        <%= javascript_pack_tag 'admin' %>
     </body>
 </html>

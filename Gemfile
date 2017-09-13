@@ -72,7 +72,7 @@ gem 'maskedinput-rails'
 
 gem 'sucker_punch', '~> 2.0', '>= 2.0.2'
 gem 'webpacker', '~> 3.0'
-
+gem 'momentjs-rails', '~> 2.17', '>= 2.17.1'
 
 # Deployment
 
