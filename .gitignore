@@ -26,3 +26,6 @@ tmp/
 # Ignore design files.
 
 design/
+/public/packs
+/public/packs-test
+/node_modules

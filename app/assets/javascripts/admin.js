@@ -16,6 +16,4 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
-//= require maskedinput
-//= require public/public
 // require_tree .

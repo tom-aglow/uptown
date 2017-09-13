@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= full_title(yield(:title)) %></title>
+        <%= render 'layouts/admin/default' %>
+    </head>
+
+    <body>
+        <%= debug(params) if Rails.env.development? %>
+
+        <div id="app">
+            <% unless flash[:notice].blank? %>
+              <div class="flash__notice">
+                  <%= flash[:notice] %>
+              </div>
+            <% end %>
+
+            <%= yield %>
+        </div>
+
+        <%= javascript_pack_tag 'admin' %>
+    </body>
+</html>

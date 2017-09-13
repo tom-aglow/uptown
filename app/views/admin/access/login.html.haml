@@ -1,0 +1,11 @@
+- provide :title, 'Login'
+
+.login
+  = form_tag(admin_attempt_login_path, method: :post)
+  = label_tag(:username)
+  = text_field_tag(:username, params[:username])
+
+  = label_tag(:password)
+  = password_field_tag(:password)
+
+  = submit_tag 'login'

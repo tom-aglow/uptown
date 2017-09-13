@@ -11,4 +11,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w( public/google-map.js public/home-page.js public/reservation-page.js )
+Rails.application.config.assets.precompile += %w( public/google-map.js public/home-page.js public/reservation-page.js admin.css admin.js )
