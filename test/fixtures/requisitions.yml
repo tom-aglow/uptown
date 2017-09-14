@@ -4,7 +4,7 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one:
-  client_id: 1
-  service_id: 1
-  shift_id: 1
+requisition_1:
+  client_id: anne
+  service_id: haircut
+  shift_id: aftrenoon_shift

@@ -92,5 +92,6 @@ class PublicController < ApplicationController
     shifts.each do |shift|
       col << { date: shift[0][0], time: shift[0][1], barber_id: shift[1] }
     end
+    return col
   end
 end
