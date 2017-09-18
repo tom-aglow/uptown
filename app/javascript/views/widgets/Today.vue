@@ -1,5 +1,6 @@
 <template>
     <div class="w-today">
+        <date-picker></date-picker>
         <div class="table">
             <div>Time</div>
             <div v-for="barber in data" v-text="barber.first_name"></div>
@@ -9,7 +10,12 @@
 </template>
 
 <script>
+    import DatePicker from '../components/Datepicker.vue'
+
     export default {
+
+      components: { DatePicker },
+
       data() {
         return {
           data: false,
@@ -42,11 +48,11 @@
               let cssClass;
 
               if (barber.shifts.hasOwnProperty(time)) {
-                cssClass = (barber.shifts[time]) ? 'free' : 'busy';
+                cssClass = (barber.shifts[time]) ? 'bg-success' : 'bg-danger';
               } else {
-                cssClass = 'unavailable';
+                cssClass = ['bg-secondary', 'disabled'];
               }
-              schedule.push({css: cssClass, text: ''});
+              schedule.push({css: [cssClass, 'cell'], text: ''});
             }
           }
           this.schedule = schedule;
