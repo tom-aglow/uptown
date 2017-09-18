@@ -1,7 +1,7 @@
 class Shift < ApplicationRecord
 
   # Relationships
-  belongs_to :barber
+  belongs_to :barber, inverse_of: :shifts
   has_one :requisition, required: false
 
   # Scopes

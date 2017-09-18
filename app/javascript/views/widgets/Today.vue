@@ -3,7 +3,7 @@
         <div class="table">
             <div>Time</div>
             <div v-for="barber in data" v-text="barber.first_name"></div>
-            <div v-for="spot in schedule" v-text="spot"></div>
+            <div v-for="spot in schedule" v-text="spot.text" :class="spot.css"></div>
         </div>
     </div>
 </template>
@@ -33,10 +33,20 @@
         
         setSchedule() {
           let schedule = [];
+
           for (let time of this.times) {
-            schedule.push(this.formatAMPM(time));
+            //  first element in a row = time
+            schedule.push({css: 'time', text: this.formatAMPM(time)});
+
             for (let barber of this.data) {
-              schedule.push(barber.id);
+              let cssClass;
+
+              if (barber.shifts.hasOwnProperty(time)) {
+                cssClass = (barber.shifts[time]) ? 'free' : 'busy';
+              } else {
+                cssClass = 'unavailable';
+              }
+              schedule.push({css: cssClass, text: ''});
             }
           }
           this.schedule = schedule;
