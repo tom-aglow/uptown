@@ -34,6 +34,9 @@
 
                 //  fire an event for Services component
                 this.$emit('created', response.data.data);
+
+                // show flash message
+                flash('New service was added');
               })
         }
     }

@@ -38,8 +38,11 @@
         axios.patch('/api/services/' + this.service.id, {
           service: this.service
         });
+
         this.editing = false;
-        //  TODO flash message
+
+        // show flash message
+        flash('Service was updated');
       },
 
       destroy() {
@@ -47,6 +50,9 @@
 
         //  fire an event for Services component
         this.$emit('deleted', this.service.id);
+
+        // show flash message
+        flash('Service was deleted');
       }
     }
 
