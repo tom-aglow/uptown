@@ -222,12 +222,18 @@ $(function () {
             step2.addClass('visible');
             step3.addClass('visible');
             setTimeout(function () {
+                if ($(window).width() < 850) {
+                  smoothScrollToTarget(step2);
+                };
                 step2.addClass('animate');
             }, 100)
         }, 500)
     }
 
     function animateSection3 () {
+        if ($(window).width() < 1225) {
+            smoothScrollToTarget(step3);
+        }
         step3.addClass('animate');
     }
 
@@ -252,8 +258,6 @@ $(function () {
                 shiftDateUI.datepicker('update', startDate);
                 _shiftDate.val(shiftDates[shiftDates.length - 1]);
 
-                // let availableTimesStart = shifts[shiftDates[shiftDates.length - 1]];
-                // renderTimeBoxes(availableTimesStart);
 
                 //  create time boxes if date was already selected
                 if (_shiftDate.val() !== '') {
@@ -322,4 +326,40 @@ $(function () {
         }
         return d;
     }
+
+  //  === smooth scrolling function
+
+  function smoothScrollToTarget(target) {
+    let startY = $(window).scrollTop();
+    let adj = ($(window).width() > 500) ? 180 : 90;
+    let stopY = target.offset().top - adj;
+    let distance = stopY > startY ? stopY - startY : startY - stopY;
+
+    if (distance < 100) {
+      scrollTo(0, stopY);
+      return;
+    }
+
+    let speed = Math.round(distance / 100);
+
+    if (speed >= 20) speed = 20;
+    let step = Math.round(distance / 25);
+    let leapY = stopY > startY ? startY + step : startY - step;
+    let timer = 0;
+
+
+    if (stopY > startY) {
+      for ( let i=startY; i<stopY; i+=step ) {
+        setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
+        leapY += step; if (leapY > stopY) leapY = stopY; timer++;
+      }
+      return;
+    }
+    for ( let i=startY; i>stopY; i-=step ) {
+      setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
+      leapY -= step; if (leapY < stopY) leapY = stopY; timer++;
+    }
+
+    return false;
+  }
 });

@@ -87,7 +87,7 @@ barbers_num.times do |i|
 
   # --- SHIFTS ---
 
-  7.times do |j|
+  20.times do |j|
     cur_date = (j + 1).days.from_now
     cur_shift = shifts[rand(shifts.length)]
 
@@ -96,7 +96,7 @@ barbers_num.times do |i|
 
   # --- ORDERS ---
 
-  20.times do
+  100.times do
     shift_record = Shift.where(barber_id: i + 1).limit(1).order("RANDOM()").first
 
     req_date = Time.parse(shift_record.date.to_s)
