@@ -19,6 +19,12 @@ Rails.application.routes.draw do
 
   # API routes
   namespace :api do
-    get 'w-today', to: '/admin/barbers#today'
+    get 'w-today/:date', to: '/api#today'
+    resources :services
+    # get 'v-services', to: '/admin/api#services'
+    # patch 'v-services/:id', to: '/admin/api#services_update'
+    # delete 'v-services/:id', to: '/admin/api#services_destroy'
+    # post 'v-services/:id', to: '/admin/api#services_destroy'
+
   end
 end

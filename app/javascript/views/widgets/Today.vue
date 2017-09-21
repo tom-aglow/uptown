@@ -1,6 +1,6 @@
 <template>
     <div class="w-today">
-        <date-picker></date-picker>
+        <date-picker v-once="" @update-date="updateDate" :date="date"></date-picker>
         <div class="table">
             <div>Time</div>
             <div v-for="barber in data" v-text="barber.first_name"></div>
@@ -20,7 +20,8 @@
         return {
           data: false,
           times: this.setTimes(),
-          schedule: false
+          schedule: false,
+					date: new Date()
         }
       },
 
@@ -30,13 +31,13 @@
 
       methods: {
         fetch() {
-          axios.get('/api/w-today').then(this.refresh).then(this.setSchedule);
+          axios.get('/api/w-today/' + this.date).then(this.refresh).then(this.setSchedule);
         },
 
         refresh ({data}) {
           this.data = data.data;
         },
-        
+
         setSchedule() {
           let schedule = [];
 
@@ -58,7 +59,12 @@
           this.schedule = schedule;
         },
 
-        //  private
+				updateDate(date) {
+        	this.date = date;
+					this.fetch();
+				},
+
+        //  locals
         setTimes() {
           let arr = [];
           for (let i = 10; i <= 19; i++) {

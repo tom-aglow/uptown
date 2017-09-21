@@ -1,15 +1,40 @@
+//  import Vue library
 import Vue from 'vue/dist/vue.js';
-import axios from 'axios';
-import VueRouter from 'vue-router';
-
-import router from './routes.js';
-import Form from '../core/Form';
-
 window.Vue = Vue;
+
+
+//  include axios library
+import axios from 'axios';
+
+let token = document.getElementsByName('csrf-token')[0].getAttribute('content');
+axios.defaults.headers.common['X-CSRF-Token'] = token;
+axios.defaults.headers.common['Accept'] = 'application/json';
+
 window.axios = axios;
+
+
+//  Form core class
+import Form from '../core/Form';
 window.Form = Form;
 
+
+//  flash messages
+window.events = new Vue();
+window.flash = function (message) {
+  window.events.$emit('flash', message);
+};
+import Flash from '../views/components/Flash.vue';
+
+
+//  declare the vue-router
+import VueRouter from 'vue-router';
+import router from './routes.js';
 Vue.use(VueRouter);
+
+//  include moment library
+import moment from 'moment';
+window.moment = moment;
+
 
 document.addEventListener('turbolinks:load', () => {
   const app = new Vue({
@@ -17,8 +42,7 @@ document.addEventListener('turbolinks:load', () => {
 
     router,
 
-    components: {
-    },
+    components: { Flash },
 
     data: {
     },
