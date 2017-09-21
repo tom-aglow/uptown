@@ -31,6 +31,11 @@ import VueRouter from 'vue-router';
 import router from './routes.js';
 Vue.use(VueRouter);
 
+//  include moment library
+import moment from 'moment';
+window.moment = moment;
+
+
 document.addEventListener('turbolinks:load', () => {
   const app = new Vue({
     el: '#app',
