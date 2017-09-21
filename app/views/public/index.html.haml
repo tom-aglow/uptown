@@ -76,7 +76,7 @@
       - @services.each do |service|
         %span.service_name #{service.name}
         %span.service_price #{service.price}
-    .btn.btn-secondary.btn-md Book your seat now
+    = link_to('Book your seat now', reservation_path, class: ['btn', 'btn-secondary', 'btn-md'])
 
 %section.contacts#contacts
 
