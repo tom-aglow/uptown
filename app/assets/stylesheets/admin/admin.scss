@@ -1,13 +1,11 @@
-// Place all the styles related to the Admin controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
 
-.debug_dump {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  padding: 5px;
-  border: 1px solid #adadad;
-  border-radius: 5px;
-  background-color: #e0e0e0;
-}
+
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+@import "1-base/fonts";
+
+@import "2-elements/debug-dump";
+
+@import "3-widgets/today";

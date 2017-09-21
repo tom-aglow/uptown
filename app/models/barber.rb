@@ -21,4 +21,13 @@ class Barber < ApplicationRecord
   def amount_of_cuts
     requisitions.where(status: 'paid').count
   end
+
+  def shifts_on_date(date)
+    shifts_col = shifts.where(date: date)
+    output = {}
+    shifts_col.each do |shift|
+      output[shift.time.to_sym] = shift.is_free
+    end
+    return output
+  end
 end

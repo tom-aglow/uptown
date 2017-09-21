@@ -1,0 +1,21 @@
+.w-today
+  margin: 30px
+  .table
+    width: 450px
+    font-size: 0.825rem
+    text-align: center
+
+    display: grid
+    grid-template-columns: 65px repeat(5, 1fr)
+    grid-row-gap: 5px
+    grid-column-gap: 5px
+
+    .time
+      padding: 5px 0
+      
+    .cell
+      cursor: pointer
+      
+      &.disabled
+        cursor: not-allowed
+        pointer-events: none

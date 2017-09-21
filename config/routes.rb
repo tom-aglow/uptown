@@ -16,4 +16,9 @@ Rails.application.routes.draw do
 
     resources :barbers
   end
+
+  # API routes
+  namespace :api do
+    get 'w-today', to: '/admin/barbers#today'
+  end
 end
