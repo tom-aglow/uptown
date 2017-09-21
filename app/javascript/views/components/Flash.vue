@@ -1,7 +1,7 @@
 <template>
-    <div class="alert alert-success alert-flash" role="alert" v-show="show">
-        <strong>Success!</strong> <span>{{ body }}</span>
-    </div>
+	<div class="alert alert-success alert-flash" role="alert" v-show="show">
+		<strong>Success!</strong> <span>{{ body }}</span>
+	</div>
 </template>
 
 <script>
