@@ -13,7 +13,7 @@
 				<div class="btn btn-xs btn-primary" @click="update">Save</div>
 				<div class="btn btn-xs btn-secondary" @click="editing = false">Cancel</div>
 			</div>
-			<div v-else="editing">
+			<div class="form-group" v-else="editing">
 				<button class="btn btn-warning btn-xs" @click="editing = true">Edit</button>
 				<button class="btn btn-danger btn-xs" @click="destroy">Delete</button>
 			</div>

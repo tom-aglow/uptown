@@ -1,10 +1,8 @@
-%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-  .navbar-brand
-    = image_tag('logo.svg', alt: 'uptown barbers logo', width: "90")
-  %ul.nav
+%nav.navbar.navbar-expand-lg.justify-content-center
+  %ul.nav.justify-content-center.nav-tabs#adminTab{role: 'tablist'}
     %li.nav-item
-      %router-link{to: '/', class:'nav-link text-light'} Dashboard
+      %router-link{to: '/', class:'nav-link', exact: '', id: 'dashboard-tab', 'data-toggle': 'tab', role: 'tab', 'aria-controls': 'home', 'aria-expanded': 'true'} Dashboard
     %li.nav-item
-      %router-link{to: '/services', class:'nav-link text-light'} Services
+      %router-link{to: '/services', class:'nav-link', id: 'service-tab', 'data-toggle': 'tab', role: 'tab', 'aria-controls': 'home', 'aria-expanded': 'true'} Services
 
 %router-view

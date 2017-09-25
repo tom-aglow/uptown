@@ -1,6 +1,6 @@
 <template>
-	<div class="container">
-		<h1>Services</h1>
+	<div class="block">
+		<h4>Services</h4>
 		<table class="table table-striped table-sm services">
 			<tr>
 				<th class="name">Name</th>

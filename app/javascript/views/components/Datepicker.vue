@@ -1,5 +1,5 @@
 <template>
-    <input type="text" id="dashboard-date">
+    <input type="text" class="date-box">
 </template>
 
 <script>

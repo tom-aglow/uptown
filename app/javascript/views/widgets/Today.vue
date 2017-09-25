@@ -1,5 +1,6 @@
 <template>
     <div class="w-today">
+				<h4>Day schedule</h4>
         <date-picker v-once="" @update-date="updateDate" :date="date"></date-picker>
         <div class="table">
             <div>Time</div>
