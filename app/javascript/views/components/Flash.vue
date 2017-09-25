@@ -1,32 +1,47 @@
 <template>
-	<div class="alert alert-success alert-flash" role="alert" v-show="show">
-		<strong>Success!</strong> <span>{{ body }}</span>
+	<div class="alert alert-flash" :class="attr.className" role="alert" v-show="show">
+		<strong>{{ attr.lead }}</strong> <span>{{ body }}</span>
 	</div>
 </template>
 
 <script>
   export default {
-    props: ['message'],
+    props: ['message', 'type'],
 
     data () {
       return {
         body: '',
+				attr: {},
         show: false
       }
     },
 
     created() {
       if (this.message) {
-        this.flash(this.message);
+        this.flash(this.message, this.type);
       }
 
-      window.events.$on('flash', message => {
-        this.flash(message);
-      });
+      window.events.$on('flash', ([message, type='yes']) => {
+				this.flash(message, type);
+			});
     },
 
     methods: {
-      flash (message) {
+      flash (message, type) {
+      	switch(type) {
+					case 'error':
+						this.attr.lead = 'Error!';
+						this.attr.className = 'alert-danger';
+						break;
+					case 'success':
+						this.attr.lead = 'Note!';
+						this.attr.className = 'alert-info';
+						break;
+					default:
+						this.attr.lead = 'Success!';
+						this.attr.className = 'alert-success';
+				}
+
         this.body = message;
         this.show = true;
 

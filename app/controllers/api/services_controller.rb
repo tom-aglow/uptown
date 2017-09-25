@@ -6,8 +6,11 @@ class Api::ServicesController < ApiController
 
   def create
     service = Service.new(service_params)
-    service.save
-    render json: { data: service }
+    if service.save
+    	render json: { data: service }
+		else
+			render json: service.errors, status: :unprocessable_entity
+		end
   end
 
   def update

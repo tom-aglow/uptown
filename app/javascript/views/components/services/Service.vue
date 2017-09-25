@@ -42,7 +42,7 @@
         this.editing = false;
 
         // show flash message
-        flash('Service was updated');
+        flash(['Service was updated']);
       },
 
       destroy() {
@@ -52,7 +52,7 @@
         this.$emit('deleted', this.service.id);
 
         // show flash message
-        flash('Service was deleted');
+        flash(['Service was deleted']);
       }
     }
 
