@@ -1,6 +1,8 @@
 <template>
 	<div class="alert alert-flash" :class="attr.className" role="alert" v-show="show">
-		<strong>{{ attr.lead }}</strong> <span>{{ body }}</span>
+		<p v-for="msg in body">
+			<strong>{{ attr.lead }}</strong> <span>{{ msg }}</span>
+		</p>
 	</div>
 </template>
 
@@ -10,7 +12,7 @@
 
     data () {
       return {
-        body: '',
+        body: [],
 				attr: {},
         show: false
       }
@@ -45,7 +47,9 @@
         this.body = message;
         this.show = true;
 
-        this.hide();
+        if(type !== 'error') {
+        	this.hide();
+				}
       },
 
       hide () {

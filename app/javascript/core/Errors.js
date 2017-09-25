@@ -21,6 +21,20 @@ class Errors {
     this.errors = errors;
   }
 
+  toArray() {
+  	let arr = [];
+
+  	for(let error in this.errors) {
+			if (this.errors.hasOwnProperty(error)) {
+				this.errors[error].forEach((msg) => {
+					arr.push(error + ' ' + msg);
+				});
+			}
+		}
+
+		return arr;
+	}
+
   clear(id) {
     if (id) {
       let field = id.split('_')[1];

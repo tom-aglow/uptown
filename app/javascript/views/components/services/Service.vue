@@ -28,21 +28,19 @@
 
     data() {
       return {
-        service: this.data,
+        service: new Form(this.data),
         editing: false
       }
     },
 
     methods: {
       update() {
-        axios.patch('/api/services/' + this.service.id, {
-          service: this.service
-        });
-
-        this.editing = false;
-
-        // show flash message
-        flash(['Service was updated']);
+				this.service.submit('patch', '/api/services/' + this.service.id, 'service')
+					.then(() => {
+						this.editing = false;
+						flash([['Service was updated']]);
+					})
+					.catch(() => flash([this.service.errors.toArray(), 'error']));
       },
 
       destroy() {

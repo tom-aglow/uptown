@@ -28,9 +28,12 @@ class Form {
     this.errors.clear();
   }
 
-  submit(requestType, url) {
+  submit(requestType, url, key) {
+  	let obj = {};
+  	obj[key] = this.data();
+
     return new Promise((resolve, reject) => {
-      axios[requestType.toLowerCase()](url, this.data())
+      axios[requestType.toLowerCase()](url, obj)
           .then(response => {
             this.onSuccess(response.data);
             resolve(response.data);
