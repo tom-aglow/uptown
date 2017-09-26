@@ -35,7 +35,7 @@ class Form {
     return new Promise((resolve, reject) => {
       axios[requestType.toLowerCase()](url, obj)
           .then(response => {
-            this.onSuccess(response.data);
+            this.onSuccess(response.data, requestType);
             resolve(response.data);
           })
           .catch(error => {
@@ -45,8 +45,10 @@ class Form {
     });
   }
 
-  onSuccess(data) {
-    this.reset();
+  onSuccess(data, requestType) {
+  	if (requestType === 'post') {
+			this.reset();
+		}
   }
 
   onFail(errors) {

@@ -7,15 +7,19 @@ class Api::ServicesController < ApiController
   def create
     service = Service.new(service_params)
     if service.save
-    	render json: { data: service }
-		else
-			render json: service.errors, status: :unprocessable_entity
-		end
+      render json: { data: service }
+    else
+      render json: service.errors, status: :unprocessable_entity
+    end
   end
 
   def update
     service = Service.find(params[:id])
-    service.update_attributes(service_params)
+    if service.update_attributes(service_params)
+      render json: { data: service }, status: 200
+    else
+      render json: service.errors, status: :unprocessable_entity
+     end
   end
 
   def destroy
@@ -24,6 +28,7 @@ class Api::ServicesController < ApiController
   end
 
   private
+
   def service_params
     params.require(:service).permit(:name, :price)
   end

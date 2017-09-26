@@ -44,13 +44,15 @@
       },
 
       destroy() {
-        axios.delete('/api/services/' + this.service.id);
+				this.service.submit('delete', '/api/services/' + this.service.id)
+					.then(() => {
+						//  fire an event for Services component
+						this.$emit('deleted', this.service.id);
 
-        //  fire an event for Services component
-        this.$emit('deleted', this.service.id);
-
-        // show flash message
-        flash(['Service was deleted']);
+						// show flash message
+						flash([['Service was deleted']]);
+					})
+					.catch(() => flash([this.service.errors.toArray(), 'error']));
       }
     }
 
