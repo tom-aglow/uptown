@@ -13,7 +13,7 @@
 				<div class="btn btn-xs btn-primary" @click="update">Save</div>
 				<div class="btn btn-xs btn-secondary" @click="editing = false">Cancel</div>
 			</div>
-			<div v-else="editing">
+			<div class="form-group" v-else="editing">
 				<button class="btn btn-warning btn-xs" @click="editing = true">Edit</button>
 				<button class="btn btn-danger btn-xs" @click="destroy">Delete</button>
 			</div>
@@ -28,31 +28,31 @@
 
     data() {
       return {
-        service: this.data,
+        service: new Form(this.data),
         editing: false
       }
     },
 
     methods: {
       update() {
-        axios.patch('/api/services/' + this.service.id, {
-          service: this.service
-        });
-
-        this.editing = false;
-
-        // show flash message
-        flash('Service was updated');
+				this.service.submit('patch', '/api/services/' + this.service.id, 'service')
+					.then(() => {
+						this.editing = false;
+						flash([['Service was updated']]);
+					})
+					.catch(() => flash([this.service.errors.toArray(), 'error']));
       },
 
       destroy() {
-        axios.delete('/api/services/' + this.service.id);
+				this.service.submit('delete', '/api/services/' + this.service.id)
+					.then(() => {
+						//  fire an event for Services component
+						this.$emit('deleted', this.service.id);
 
-        //  fire an event for Services component
-        this.$emit('deleted', this.service.id);
-
-        // show flash message
-        flash('Service was deleted');
+						// show flash message
+						flash([['Service was deleted']]);
+					})
+					.catch(() => flash([this.service.errors.toArray(), 'error']));
       }
     }
 

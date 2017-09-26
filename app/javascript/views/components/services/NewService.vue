@@ -17,27 +17,18 @@
 
     data() {
       return {
-        service: {
+        service: new Form ({
           name: '',
           price: ''
-        }
+        })
       }
     },
 
     methods: {
 			add() {
-				axios.post('/api/services', { service: this.service })
-					.then(response => {
-						//  reset the service object
-						this.service.name = '';
-						this.service.price = '';
-
-						//  fire an event for Services component
-						this.$emit('created', response.data.data);
-
-						// show flash message
-						flash('New service was added');
-					})
+				this.service.submit('post', '/api/services', 'service')
+					.then(data => this.$emit('created', data.data))
+					.catch(() => flash([this.service.errors.toArray(), 'error']));
 			}
     }
 
