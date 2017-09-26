@@ -50,13 +50,12 @@
             schedule.push({css: 'time', text: this.formatAMPM(time)});
 
             for (let barber of this.data) {
-              let cssClass;
+              let cssClass = ['bg-secondary', 'disabled'];
 
               if (barber.shifts.hasOwnProperty(time)) {
                 cssClass = (barber.shifts[time]) ? 'bg-success' : 'bg-danger';
-              } else {
-                cssClass = ['bg-secondary', 'disabled'];
               }
+
               schedule.push({css: [cssClass, 'cell'], text: ''});
             }
           }

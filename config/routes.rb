@@ -19,8 +19,9 @@ Rails.application.routes.draw do
   namespace :api do
     get 'w-today/:date', to: '/api#today'
     resources :services
-		resources :shifts
 		resources :barbers
+
+		get 'shifts/:barber/:date', to: '/api/shifts#index'
 
   end
 end

@@ -11,6 +11,8 @@ class Shift < ApplicationRecord
 
   scope :all_available_for_barber, -> (barber_id) { where(barber_id: barber_id).all_available }
 
+  scope :week_schedule_for_barber, -> (barber_id, date) { where(barber_id: barber_id, date: date.beginning_of_week..(date.beginning_of_week + 6)) }
+
   # Validation
   validates :date, presence: true
   validates :time, presence: true

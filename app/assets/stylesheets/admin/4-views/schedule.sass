@@ -10,7 +10,23 @@
     margin-bottom: 0
 
     display: grid
-    grid-template-columns: 65px repeat(7, 1fr)
+    grid-template-columns: 80px repeat(7, 1fr)
     grid-row-gap: 5px
     grid-column-gap: 5px
 
+    .day
+      padding: 3px 7px
+
+    .day-name
+      text-transform: uppercase
+
+    .time
+      padding: 5px 3px
+
+    .cell
+      cursor: pointer
+
+
+      &.disabled
+        cursor: not-allowed
+        pointer-events: none

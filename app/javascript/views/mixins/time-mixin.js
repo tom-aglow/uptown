@@ -17,7 +17,14 @@ export default {
 			hours = hours ? hours : 12; // the hour '0' should be '12'
 			hours = (hours < 10) ? '0' + hours : hours;
 			return hours + ':00 ' + ampm;
-		}
+		},
 
+		getWeekDaysNames() {
+			let weekDays = [];
+			for (let i = 0; i < 7; i++) {
+				weekDays.push(moment().weekday(i).format('ddd'));
+			}
+			return weekDays;
+		}
 	}
 }
