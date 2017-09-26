@@ -2,6 +2,9 @@
 	<div class="block w-schedule">
 		<h4>Set a schedule</h4>
 		<date-picker class="date-box" v-once="" @update-date="updateDate" :date="date"></date-picker>
+		<select class="custom-select" v-model="barber.id">
+			<option v-for="item in barbers" v-text="item.first_name" :value="item.id"></option>
+		</select>
 		<div class="table">
 			<div>Time</div>
 			<div v-for="day in weekDates" v-text="day"></div>
@@ -21,22 +24,40 @@
 		data() {
 			return {
 				date: false,
-				weekDates: []
+				weekDates: [],
+				barber: {
+					id: 0
+				},
+				barbers: []
 			}
 		},
 
 		created() {
 			this.date = new Date();
 			this.weekDates = this.getWeekDates(this.date);
+
+			//	get list of all barbers and select the first one by default
+			axios.get('/api/barbers').then(data => {
+				this.barbers = data.data;
+				this.barber.id = data.data[0].id;
+			});
+
 		},
 
 		methods: {
+			fetch() {
+//				axios.get('/api/shifts/' + this.barber.id).then(this.refresh);
+			},
+
+			refresh ({data}) {
+				this.data = data.data;
+			},
+
 			updateDate(date) {
 				this.date = date;
 			},
 
 			getWeekDates(date) {
-				console.log(date);
 				let startDate = moment(date).day(0);
 				let dates = [];
 
