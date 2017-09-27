@@ -3,7 +3,7 @@
 		<div class="block w-schedule">
 			<h4>Set a schedule</h4>
 			<date-picker class="date-box" v-once="" @update-date="updateDate" :date="date"></date-picker>
-			<barber></barber>
+			<barber @update="updateBarberID"></barber>
 			<!--<select class="custom-select" v-model="barber.id">-->
 				<!--<option v-for="item in barbers" v-text="item.first_name" :value="item.id"></option>-->
 			<!--</select>-->
@@ -81,6 +81,10 @@
 				}
 
 				return dates;
+			},
+
+			updateBarberID(id) {
+				this.barber.id = id;
 			}
 
 		}
