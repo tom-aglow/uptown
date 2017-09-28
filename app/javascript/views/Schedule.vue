@@ -4,14 +4,11 @@
 			<h4>Set a schedule</h4>
 			<date-picker class="date-box" v-once="" @update-date="updateDate" :date="date"></date-picker>
 			<barber @update="updateBarberID"></barber>
-			<!--<select class="custom-select" v-model="barber.id">-->
-				<!--<option v-for="item in barbers" v-text="item.first_name" :value="item.id"></option>-->
-			<!--</select>-->
 			<div class="table">
 				<div>
 					<div class="cell-header"></div>
 					<div class="cell-header"></div>
-					<div v-for="time in times" v-text="formatAMPM(time)" class="cell-side"></div>
+					<div v-for="time in times" class="cell-side">{{ time | format_AMPM }}</div>
 				</div>
 				<shift-day v-for="day in weekDates" :data="day"></shift-day>
 			</div>
@@ -85,6 +82,7 @@
 
 			updateBarberID(id) {
 				this.barber.id = id;
+				this.fetch();
 			}
 
 		}

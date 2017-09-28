@@ -1,5 +1,20 @@
 export default {
 
+	filters: {
+		format_AMPM(time) {
+			let hours = +time.split(':')[0];
+			return moment().hour(hours).minute("00").format("hh:mm A");
+		},
+
+		format_MMDD(date) {
+			return moment(date).format('MM/DD');
+		},
+
+		format_ddd(date) {
+			return moment(date).format('ddd');
+		},
+	},
+
 	methods: {
 
 		setTimes() {

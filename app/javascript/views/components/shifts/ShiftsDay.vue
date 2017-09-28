@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<div class="cell-header">{{ formatDayNameForTitle(date) }}</div>
-		<div class="cell-header">{{ formatDateForTitle(date) }}</div>
+		<div class="cell-header">{{ date | format_ddd }}</div>
+		<div class="cell-header">{{ date | format_MMDD }}</div>
 		<shift v-for="time in times" :data="shifts[time]"></shift>
 	</div>
 </template>
@@ -32,14 +32,6 @@
 		},
 
 		methods: {
-
-			formatDateForTitle(date) {
-				return moment(date).format('MM/DD');
-			},
-
-			formatDayNameForTitle(date) {
-				return moment(date).format('ddd');
-			}
 		}
 
 	}
