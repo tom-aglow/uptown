@@ -24,14 +24,17 @@
 				date: Object.keys(this.data)[0],
 				shifts: this.data[Object.keys(this.data)[0]],
 				times: this.setTimes(),
+			}
+		},
 
+		watch: {
+			data() {
+				this.date = Object.keys(this.data)[0];
+				this.shifts = this.data[Object.keys(this.data)[0]];
 			}
 		},
 
 		mounted() {
-		},
-
-		methods: {
 		}
 
 	}

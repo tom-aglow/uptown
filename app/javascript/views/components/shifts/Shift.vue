@@ -16,14 +16,31 @@
 		},
 
 		mounted() {
-			let cellStyle = [];
-			if (this.shift) {
-				cellStyle = (this.shift.is_free) ? ['bg-success'] : ['bg-danger', 'disabled'];
-			} else {
-				cellStyle = ['bg-secondary'];
-			}
+			this.refresh();
+		},
 
-			this.cssClass.push.apply(this.cssClass, cellStyle);
+		watch: {
+			data() {
+				this.shift = this.data;
+				this.refresh();
+			}
+		},
+
+		methods: {
+			refresh() {
+				//	reset cssClass array
+				this.cssClass = ['cell'];
+
+				//	add css classes according shift availability
+				let cellStyle = [];
+				if (this.shift) {
+					cellStyle = (this.shift.is_free) ? ['bg-success'] : ['bg-danger', 'disabled'];
+				} else {
+					cellStyle = ['bg-secondary'];
+				}
+
+				this.cssClass.push.apply(this.cssClass, cellStyle);
+			}
 		}
 	}
 
