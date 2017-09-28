@@ -83,6 +83,15 @@
 			updateBarberID(id) {
 				this.barber.id = id;
 				this.fetch();
+			},
+
+			updateDate(date) {
+				if(moment(this.date).week() !== moment(date).week()) {
+					this.date = date;
+					this.fetch();
+				} else {
+					this.date = date;
+				}
 			}
 
 		}

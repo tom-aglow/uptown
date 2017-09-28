@@ -18,7 +18,8 @@
           format: 'yyyy-mm-dd',
           orientation: 'left bottom',
           todayHighlight: true,
-          autoclose: true
+          autoclose: true,
+					weekStart: 1
         });
 
 				$(this.$el).datepicker('update', this.date);
