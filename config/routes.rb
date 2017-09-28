@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get 'w-today/:date', to: '/api#today'
     resources :services
 		resources :barbers
+		resources :shifts
 
 		get 'shifts/:barber/:date', to: '/api/shifts#index'
 

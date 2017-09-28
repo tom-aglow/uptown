@@ -1,5 +1,5 @@
 <template>
-	<div :class="cssClass"></div>
+	<div :class="cssClass" @click="update"></div>
 </template>
 
 <script>
@@ -11,7 +11,7 @@
 		data() {
 			return {
 				cssClass: ['cell'],
-				shift: this.data
+				shift: new Form(this.data)
 			}
 		},
 
@@ -21,7 +21,7 @@
 
 		watch: {
 			data() {
-				this.shift = this.data;
+				this.shift = new Form(this.data);
 				this.refresh();
 			}
 		},
@@ -33,13 +33,22 @@
 
 				//	add css classes according shift availability
 				let cellStyle = [];
-				if (this.shift) {
+				if (this.shift.hasOwnProperty('id')) {
 					cellStyle = (this.shift.is_free) ? ['bg-success'] : ['bg-danger', 'disabled'];
 				} else {
 					cellStyle = ['bg-secondary'];
 				}
 
 				this.cssClass.push.apply(this.cssClass, cellStyle);
+			},
+
+			update() {
+				if(this.cssClass.indexOf('bg-secondary') > 0) {
+					this.shift.submit('post', '/api/shifts', 'shift')
+						.then()
+						.catch(() => flash([this.shift.errors.toArray(), 'error']));
+					console.log('hello');
+				}
 			}
 		}
 	}

@@ -62,16 +62,48 @@
 			},
 
 			getWeekDates(date) {
+				//	start date of selected week
 				let startDate = moment(date).weekday(0);
+
+				//	dates array with all shifts spots for current week
 				let dates = [];
 
+				//	save shifts object to local variable
+				let shifts = this.weekShifts;
+
+				//	for each day of week
 				for (let i = 0; i < 7; i++) {
+
+					//	object with all spots for current day
 					let obj = {};
+
+					//	current date string value which is used as key for the object
 					let curDate = moment(startDate).add(i, 'd').format('YYYY-MM-DD');
-					if (this.weekShifts !== null && this.weekShifts.hasOwnProperty(curDate)) {
-						obj[curDate] = this.weekShifts[curDate];
+
+					if (shifts !== null && shifts.hasOwnProperty(curDate)) {
+						//	if there is already at least one shift for current date
+						obj[curDate] = {};
+
+						//	loop through time spots of the day
+						this.times.forEach((time) => {
+
+							if(shifts[curDate].hasOwnProperty(time)) {
+								//	if there is shift for the time spot, add shift object to the parent object with time key
+								obj[curDate][time] = shifts[curDate][time];
+							} else {
+								//	...	if not then create a dummy time spot
+								obj[curDate][time] = { "date": curDate, "time": time, "barber_id": this.barber.id };
+							}
+						});
+
 					} else {
-						obj[curDate] = [];
+						//	if there is no shifts at all for the date
+						obj[curDate] = {};
+
+						//	fill object with dummy objects for each time spot
+						this.times.forEach((time) => {
+							obj[curDate][time] = { "date": curDate, "time": time, "barber_id": this.barber.id  };
+						});
 					}
 
 					dates.push(obj);

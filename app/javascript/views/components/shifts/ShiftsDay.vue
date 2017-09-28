@@ -23,7 +23,7 @@
 			return {
 				date: Object.keys(this.data)[0],
 				shifts: this.data[Object.keys(this.data)[0]],
-				times: this.setTimes(),
+				times: this.setTimes()
 			}
 		},
 
