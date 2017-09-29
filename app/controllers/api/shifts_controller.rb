@@ -15,6 +15,15 @@ class Api::ShiftsController < ApplicationController
     end
   end
 
+  def destroy
+    shift = Shift.find(params[:id])
+    if shift.destroy
+      render json: { data: shift }
+    else
+      render json: shift.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def shift_params
