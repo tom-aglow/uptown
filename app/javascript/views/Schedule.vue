@@ -10,7 +10,7 @@
 					<div class="cell-header"></div>
 					<div v-for="time in times" class="cell-side">{{ time | format_AMPM }}</div>
 				</div>
-				<shift-day v-for="day in weekDates" :data="day"></shift-day>
+				<shift-day v-for="day in weekDates" :data="day" :key="day | format_MMDD"></shift-day>
 			</div>
 		</div>
 

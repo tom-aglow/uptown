@@ -2,7 +2,7 @@
 	<div>
 		<div class="cell-header">{{ date | format_ddd }}</div>
 		<div class="cell-header">{{ date | format_MMDD }}</div>
-		<shift v-for="time in times" :data="shifts[time]"></shift>
+		<shift v-for="time in times" :data="shifts[time]" :key="time"></shift>
 	</div>
 </template>
 
