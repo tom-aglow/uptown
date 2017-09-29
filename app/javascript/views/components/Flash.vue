@@ -14,49 +14,53 @@
       return {
         body: [],
 				attr: {},
-        show: false
+        show: false,
+				timer: null
       }
     },
 
     created() {
       if (this.message) {
-        this.flash(this.message, this.type);
+        this.flash(this.type, this.message);
       }
 
-      window.events.$on('flash', ([message, type='yes']) => {
-				this.flash(message, type);
+      window.events.$on('flash', (type, messages) => {
+				this.flash(type, messages);
 			});
     },
 
     methods: {
-      flash (message, type) {
-      	switch(type) {
-					case 'error':
-						this.attr.lead = 'Error!';
-						this.attr.className = 'alert-danger';
-						break;
-					case 'success':
-						this.attr.lead = 'Note!';
-						this.attr.className = 'alert-info';
-						break;
-					default:
-						this.attr.lead = 'Success!';
-						this.attr.className = 'alert-success';
-				}
 
-        this.body = message;
-        this.show = true;
+			flash (type, messages) {
+				this['flash' + type]();
+				this.body = messages;
+				this.show = true;
+			},
 
-        if(type !== 'error') {
-        	this.hide();
-				}
-      },
+    	flashError() {
+				this.attr.lead = 'Error!';
+				this.attr.className = 'alert-danger';
+			},
+
+			flashSuccess() {
+				this.attr.lead = 'Success!';
+				this.attr.className = 'alert-success';
+				this.hide();
+			},
+
+			flashNote() {
+				this.attr.lead = 'Note!';
+				this.attr.className = 'alert-warning';
+				this.hide();
+			},
 
       hide () {
-        setTimeout(() => {
+				clearTimeout(this.timer);
+
+        this.timer = setTimeout(() => {
           this.show = false
         }, 3000)
-      }
+      },
     }
   };
 </script>

@@ -28,7 +28,7 @@
 			add() {
 				this.service.submit('post', '/api/services', 'service')
 					.then(data => this.$emit('created', data.data))
-					.catch(() => flash([this.service.errors.toArray(), 'error']));
+					.catch(() => flash.apply(null, this.service.errors.toArray()));
 			}
     }
 

@@ -38,9 +38,9 @@
 				this.service.submit('patch', '/api/services/' + this.service.id, 'service')
 					.then(() => {
 						this.editing = false;
-						flash([['Service was updated']]);
+						flash('Success', 'Service was updated');
 					})
-					.catch(() => flash([this.service.errors.toArray(), 'error']));
+					.catch(() => flash.apply(null, this.service.errors.toArray()));
       },
 
       destroy() {
@@ -50,9 +50,9 @@
 						this.$emit('deleted', this.service.id);
 
 						// show flash message
-						flash([['Service was deleted']]);
+						flash('Success', 'Service was deleted');
 					})
-					.catch(() => flash([this.service.errors.toArray(), 'error']));
+					.catch(() => flash.apply(null, this.service.errors.toArray()));
       }
     }
 

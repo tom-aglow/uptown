@@ -41,7 +41,7 @@
 
 			add(item) {
 				this.items.push(item);
-				flash([['New service was created']]);
+				flash('Success', 'New service was created');
 //				this.$emit('added');
 			},
 

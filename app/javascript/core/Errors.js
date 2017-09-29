@@ -22,7 +22,7 @@ class Errors {
   }
 
   toArray() {
-  	let arr = [];
+  	let arr = ['Error'];
 
   	for(let error in this.errors) {
 			if (this.errors.hasOwnProperty(error)) {
