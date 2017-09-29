@@ -12,10 +12,13 @@
 
 <script>
     import DatePicker from '../components/Datepicker.vue'
+    import TimeMixin from '../mixins/time-mixin.js'
 
     export default {
 
       components: { DatePicker },
+
+			mixins: [TimeMixin],
 
       data() {
         return {
@@ -47,13 +50,12 @@
             schedule.push({css: 'time', text: this.formatAMPM(time)});
 
             for (let barber of this.data) {
-              let cssClass;
+              let cssClass = ['bg-secondary', 'disabled'];
 
               if (barber.shifts.hasOwnProperty(time)) {
                 cssClass = (barber.shifts[time]) ? 'bg-success' : 'bg-danger';
-              } else {
-                cssClass = ['bg-secondary', 'disabled'];
               }
+
               schedule.push({css: [cssClass, 'cell'], text: ''});
             }
           }
@@ -63,25 +65,7 @@
 				updateDate(date) {
         	this.date = date;
 					this.fetch();
-				},
-
-        //  locals
-        setTimes() {
-          let arr = [];
-          for (let i = 10; i <= 19; i++) {
-            arr.push(i + ':00:00');
-          }
-          return arr;
-        },
-
-        formatAMPM(time) {
-          let hours = +time.split(':')[0];
-          let ampm = hours >= 12 ? 'PM' : 'AM';
-          hours = hours % 12;
-          hours = hours ? hours : 12; // the hour '0' should be '12'
-          hours = (hours < 10) ? '0' + hours : hours;
-          return hours + ':00 ' + ampm;
-        }
+				}
       }
     }
 </script>

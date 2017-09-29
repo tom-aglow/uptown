@@ -13,18 +13,16 @@ Rails.application.routes.draw do
     get 'access/login', as: 'login'
     post 'access/attempt_login', as: 'attempt_login'
     get 'access/logout', as: 'logout'
-
-    resources :barbers
   end
 
   # API routes
   namespace :api do
     get 'w-today/:date', to: '/api#today'
     resources :services
-    # get 'v-services', to: '/admin/api#services'
-    # patch 'v-services/:id', to: '/admin/api#services_update'
-    # delete 'v-services/:id', to: '/admin/api#services_destroy'
-    # post 'v-services/:id', to: '/admin/api#services_destroy'
+		resources :barbers
+		resources :shifts
+
+		get 'shifts/:barber/:date', to: '/api/shifts#index'
 
   end
 end

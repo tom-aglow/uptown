@@ -34,6 +34,11 @@ Vue.use(VueRouter);
 //  include moment library
 import moment from 'moment';
 window.moment = moment;
+moment.updateLocale('en', {
+	week: {
+		dow: 1,
+	},
+});
 
 
 document.addEventListener('turbolinks:load', () => {
