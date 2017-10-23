@@ -20,8 +20,8 @@ window.Form = Form;
 
 //  flash messages
 window.events = new Vue();
-window.flash = function (message) {
-  window.events.$emit('flash', message);
+window.flash = function (type, ...messages) {
+  window.events.$emit('flash', type, messages);
 };
 import Flash from '../views/components/Flash.vue';
 

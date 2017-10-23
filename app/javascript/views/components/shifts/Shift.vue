@@ -49,9 +49,9 @@
 					this.shift.submit('post', '/api/shifts', 'shift')
 						.then((response) => {
 							this.create(response.data);
-							flash([['Shift was added to barber\'s schedule']]);
+							flash('Success','Shift was added to barber\'s schedule');
 						})
-						.catch(() => flash([this.shift.errors.toArray(), 'error']));
+						.catch(() => flash.apply(null, this.shift.errors.toArray()));
 
 				} else if(this.cssClass.indexOf('bg-success') > 0) {
 					//	click event on barber's shift spot -> delete the shift
@@ -59,9 +59,9 @@
 					this.shift.submit('delete', '/api/shifts/' + this.shift.id, 'shift')
 						.then(() => {
 							this.resetToDefault();
-							flash([['Shift was deleted from barber\'s schedule']]);
+							flash('Success', 'Shift was deleted from barber\'s schedule');
 						})
-						.catch(() => flash([this.shift.errors.toArray(), 'error']));
+						.catch(() => flash.apply(null, this.shift.errors.toArray()));
 				}
 			},
 
