@@ -27,6 +27,12 @@ class Api::ServicesController < ApiController
     service.destroy
   end
 
+  def popular
+		services = []
+    Service.all.each { |service| services << {name: service.name, popularity: service.popularity} }
+    render json: services
+  end
+
   private
 
   def service_params

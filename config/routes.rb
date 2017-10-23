@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root to: 'public#index'
 
   get 'index', to: 'public#index'
@@ -18,11 +17,13 @@ Rails.application.routes.draw do
   # API routes
   namespace :api do
     get 'w-today/:date', to: '/api#today'
+
+    get 'services/popular', to: '/api/services#popular'
     resources :services
-		resources :barbers
-		resources :shifts
 
-		get 'shifts/:barber/:date', to: '/api/shifts#index'
+    resources :barbers
 
+    resources :shifts
+    get 'shifts/:barber/:date', to: '/api/shifts#index'
   end
 end
