@@ -4,9 +4,22 @@
 
 <script>
 	import Chart from 'chart.js'
+	import googleColors from '../../../../core/colors'
 
 	export default {
-		props: ['dataLabels', 'dataValues'],
+		props: ['dataLabels', 'dataValues', 'dataShade'],
+
+		computed: {
+			colors() {
+				const result = [];
+				Object.keys(googleColors).forEach((color) => {
+					if (googleColors[color][this.dataShade] !== undefined) {
+						result.push(googleColors[color][this.dataShade]);
+					}
+				});
+				return result;
+			}
+		},
 
 		watch: {
 			dataValues() {
@@ -23,28 +36,22 @@
 						datasets: [{
 							label: '# of Votes',
 							data: this.dataValues,
-							backgroundColor: [
-								'rgba(255, 99, 132, 0.2)',
-								'rgba(54, 162, 235, 0.2)',
-								'rgba(255, 206, 86, 0.2)',
-								'rgba(75, 192, 192, 0.2)',
-								'rgba(153, 102, 255, 0.2)',
-								'rgba(255, 159, 64, 0.2)',
-								'rgba(255, 200, 64, 0.2)'
-							],
-							borderColor: [
-								'rgba(255,99,132,1)',
-								'rgba(54, 162, 235, 1)',
-								'rgba(255, 206, 86, 1)',
-								'rgba(75, 192, 192, 1)',
-								'rgba(153, 102, 255, 1)',
-								'rgba(255, 159, 64, 1)',
-								'rgba(255, 200, 64, 1)'
-							],
+							backgroundColor: this.colors.slice(0, this.dataValues.length),
 							borderWidth: 1
 						}]
 					},
-					options: {}
+					options: {
+						hover: {
+
+						},
+						animation: {
+							duration: 500
+						},
+						legend: {
+							position: 'bottom',
+							fontFamily: "Textbook, 'Open Sans', Sans-Serif"
+						}
+					}
 				})
 			}
 		}

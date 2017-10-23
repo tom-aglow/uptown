@@ -1,7 +1,7 @@
 <template>
 	<div class="block">
 		<h4>Popular services</h4><br>
-		<pie-chart :data-labels="services" :data-values="popularity"></pie-chart>
+		<pie-chart :data-labels="services" :data-values="popularity" :data-shade="400"></pie-chart>
 	</div>
 </template>
 
