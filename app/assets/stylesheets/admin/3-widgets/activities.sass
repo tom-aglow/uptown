@@ -1,0 +1,20 @@
+.w-activities
+  width: 600px
+  display: inline-block
+
+  @include block()
+  text-align: center
+  border-color: $color-orange
+  background-color: lighten($color-light-orange, 10%)
+  color: $color-orange
+
+  .activity-row
+    display: flex
+    justify-content: space-between
+
+    &:not(:first-of-type)
+      margin-top: 20px
+
+    span:nth-child(2)
+      color: $color-grey
+      font-style: italic

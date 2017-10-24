@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828173220) do
+ActiveRecord::Schema.define(version: 20171024012631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer "client_id"
+    t.string "action"
+    t.integer "eventable_id"
+    t.string "eventable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "barbers", force: :cascade do |t|
     t.string "first_name", limit: 30, null: false

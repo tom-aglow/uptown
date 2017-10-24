@@ -25,5 +25,7 @@ Rails.application.routes.draw do
 
     resources :shifts
     get 'shifts/:barber/:date', to: '/api/shifts#index'
+
+    get 'clients/activities', to: '/api/clients#activities'
   end
 end

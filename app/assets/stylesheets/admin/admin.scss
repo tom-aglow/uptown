@@ -26,9 +26,11 @@
 @import "2-elements/table-schedule";
 
 @import "3-widgets/today";
+@import "3-widgets/activities";
 
 @import "4-views/services";
 @import "4-views/schedule";
+@import "4-views/dashboard";
 
 #app {
   text-align: center;

@@ -88,7 +88,7 @@ barbers_num.times do |i|
   # --- SHIFTS ---
 
   20.times do |j|
-    cur_date = (j + 1).days.from_now
+    cur_date = (j).days.from_now
     cur_shift = shifts[rand(shifts.length)]
 
     cur_shift.call(i + 1, cur_date)
@@ -99,9 +99,11 @@ barbers_num.times do |i|
   100.times do
     shift_record = Shift.where(barber_id: i + 1).limit(1).order("RANDOM()").first
 
-    req_date = Time.parse(shift_record.date.to_s)
+    req_date = Faker::Time.between(10.days.ago, 1.days.ago)
 
-    req_record = Requisition.create(client_id: 1 + rand(19),
+		client_id = get_random_record_id(Client)
+
+    req_record = Requisition.create(client_id: client_id,
                                     service_id: 1 + rand(6),
                                     shift_id: shift_record.id,
                                     status: 'booked',
@@ -110,6 +112,14 @@ barbers_num.times do |i|
     )
 
     shift_record.update_attributes(is_free: false)
+
+		# creating activity
+		Client.where(id: client_id).first.activities.create(
+			action: 'booking',
+			eventable: req_record,
+			created_at: req_date,
+			updated_at: req_date
+		)
   end
 end
 
@@ -119,7 +129,7 @@ end
 20.times do
 
   # setting up parameters
-  req_date = Faker::Time.between(14.days.ago, 5.days.ago)
+  req_date = Faker::Time.between(14.days.ago, 4.days.ago)
   service_date = Date.parse((req_date + 3.days).to_s)
   service_time = rand(10...19).to_s + ':00:00'
   barber_id_rand = get_random_record_id(Barber)
@@ -130,7 +140,9 @@ end
   shift_record.update_attributes(is_free: false)
 
   # creating an order record
-  req_record = Requisition.create(client_id: get_random_record_id(Client),
+	client_id = get_random_record_id(Client)
+
+	req_record = Requisition.create(client_id: client_id,
                                   service_id: get_random_record_id(Service),
                                   shift_id: shift_record.id,
                                   status: 'paid',
@@ -139,10 +151,25 @@ end
   )
 
   # creating testimonial record
-  Testimonial.create(requisition_id: req_record.id,
+  test_record = Testimonial.create(requisition_id: req_record.id,
                      body: Faker::Hipster.paragraph(1),
                      grade: rand(4..5),
                      created_at: testimonial_date,
                      updated_at: testimonial_date
   )
+
+	# creating activities
+	Client.where(id: client_id).first.activities.create(
+		action: 'booking',
+		eventable: req_record,
+		created_at: req_date,
+		updated_at: req_date
+	)
+
+	Client.where(id: client_id).first.activities.create(
+		action: 'testimonial',
+		eventable: test_record,
+		created_at: testimonial_date,
+		updated_at: testimonial_date
+	)
 end
