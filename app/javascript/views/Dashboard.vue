@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Today from './widgets/Today.vue';
+import Today from './components/dashboard/Today.vue';
 
 export default {
     components: { Today }

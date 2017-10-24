@@ -14,6 +14,7 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+@import "1-base/colors";
 @import "1-base/mixins";
 @import "1-base/fonts";
 @import "1-base/layout";
@@ -22,6 +23,7 @@
 @import "2-elements/buttons";
 @import "2-elements/flash";
 @import "2-elements/date-input";
+@import "2-elements/table-schedule";
 
 @import "3-widgets/today";
 
