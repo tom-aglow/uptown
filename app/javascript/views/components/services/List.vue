@@ -1,7 +1,7 @@
 <template>
-	<div class="block">
+	<div class="block v-services">
 		<h4>Services</h4>
-		<table class="table table-striped table-sm services">
+		<table class="table table-striped table-sm">
 			<tr>
 				<th class="name">Name</th>
 				<th class="price">Price</th>

@@ -4,22 +4,10 @@
 
 <script>
 	import Chart from 'chart.js'
-	import googleColors from '../../../../core/colors'
+	import colors from '../../../../core/colors'
 
 	export default {
-		props: ['dataLabels', 'dataValues', 'dataShade'],
-
-		computed: {
-			colors() {
-				const result = [];
-				Object.keys(googleColors).forEach((color) => {
-					if (googleColors[color][this.dataShade] !== undefined) {
-						result.push(googleColors[color][this.dataShade]);
-					}
-				});
-				return result;
-			}
-		},
+		props: ['dataLabels', 'dataValues'],
 
 		watch: {
 			dataValues() {
@@ -36,7 +24,7 @@
 						datasets: [{
 							label: '# of Votes',
 							data: this.dataValues,
-							backgroundColor: this.colors.slice(0, this.dataValues.length),
+							backgroundColor: colors.slice(0, this.dataValues.length),
 							borderWidth: 1
 						}]
 					},

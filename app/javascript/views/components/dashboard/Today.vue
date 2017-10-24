@@ -1,7 +1,7 @@
 <template>
     <div class="w-today">
 				<h4>Day schedule</h4>
-        <date-picker v-once="" @update-date="updateDate" :date="date"></date-picker>
+        <date-picker @update-date="updateDate" :date="date" :data-id="'day'"></date-picker>
         <div class="table">
 						<div></div>
 						<div v-for="barber in data" class="avatar">

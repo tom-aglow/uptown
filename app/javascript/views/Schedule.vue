@@ -2,7 +2,7 @@
 	<div>
 		<div class="block w-schedule">
 			<h4>Set a schedule</h4>
-			<date-picker class="date-box" v-once="" @update-date="updateDate" :date="date"></date-picker>
+			<date-picker class="date-box" @update-date="updateDate" :date="date" :data-id="'schedule'"></date-picker>
 			<barber @update="updateBarberID"></barber>
 			<div class="table">
 				<div>
@@ -11,6 +11,20 @@
 					<div v-for="time in times" class="cell-side">{{ time | format_AMPM }}</div>
 				</div>
 				<shift-day v-for="day in weekDates" :data="day" :key="day | format_MMDD"></shift-day>
+			</div>
+			<div class="legend">
+				<div class="legend-row">
+					<div class="cell-sample cell-default"></div>
+					<div> - off</div>
+				</div>
+				<div class="legend-row">
+					<div class="cell-sample cell-free"></div>
+					<div> - available</div>
+				</div>
+				<div class="legend-row">
+					<div class="cell-sample cell-busy"></div>
+					<div> - booked</div>
+				</div>
 			</div>
 		</div>
 

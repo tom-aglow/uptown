@@ -1,10 +1,10 @@
 <template>
-    <input type="text" class="date-box">
+    <input type="text" :id="this.dataId" class="date-box">
 </template>
 
 <script>
     export default {
-    	props: ['date'],
+    	props: ['date', 'dataId'],
 
 			data() {
     		return {

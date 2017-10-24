@@ -7,7 +7,7 @@
 			<input type="text" class="form-control form-control-sm" v-model="service.price">
 		</td>
 		<td class="actions">
-			<div class="btn btn-xs btn-info" @click="add">Add</div>
+			<div class="btn btn-xs btn-primary" @click="add">Add</div>
 		</td>
 	</tr>
 </template>

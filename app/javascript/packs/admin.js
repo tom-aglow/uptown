@@ -48,14 +48,5 @@ document.addEventListener('turbolinks:load', () => {
     router,
 
     components: { Flash },
-
-    data: {
-    },
-
-    mounted() {
-    },
-
-    methods: {
-    }
   })
 });
