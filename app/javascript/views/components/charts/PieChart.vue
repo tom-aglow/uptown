@@ -1,13 +1,13 @@
 <template>
-	<canvas width="600" height="400" ref="chart"></canvas>
+	<canvas :width="dataOptions.width" :height="dataOptions.height" ref="chart"></canvas>
 </template>
 
 <script>
 	import Chart from 'chart.js'
-	import colors from '../../../../core/colors'
+	import colors from '../../../core/colors'
 
 	export default {
-		props: ['dataLabels', 'dataValues'],
+		props: ['dataLabels', 'dataValues', 'dataOptions'],
 
 		watch: {
 			dataValues() {
@@ -22,7 +22,7 @@
 					data: {
 						labels: this.dataLabels,
 						datasets: [{
-							label: '# of Votes',
+							label: this.dataOptions.label,
 							data: this.dataValues,
 							backgroundColor: colors.slice(0, this.dataValues.length),
 							borderWidth: 1

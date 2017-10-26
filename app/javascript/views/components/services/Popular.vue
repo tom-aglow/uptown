@@ -1,12 +1,12 @@
 <template>
 	<div class="block v-popular-services">
 		<h4>Popular services</h4><br>
-		<pie-chart :data-labels="services" :data-values="popularity"></pie-chart>
+		<pie-chart :data-labels="services" :data-values="popularity" :data-options="{label: '# of cuts', width: 600, height: 400}"></pie-chart>
 	</div>
 </template>
 
 <script>
-	import PieChart from './popular/PieChart.vue'
+	import PieChart from '../charts/PieChart.vue'
 	import collection from '../../../core/collection'
 
 	export default {

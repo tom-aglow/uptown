@@ -7,6 +7,9 @@ class Requisition < ApplicationRecord
   belongs_to :service
   has_one :testimonial
 
+  # Scopes
+  scope :created_between, ->(start_date, end_date) { where(created_at: start_date..end_date) }
+
   # Sending emails methods
   def send_confirmation
     RequisitionMailer.requisition_confirmation(client, self).deliver_later

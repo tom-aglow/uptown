@@ -5,10 +5,10 @@ class Barber < ApplicationRecord
   has_many :requisitions, through: :shifts
   has_many :testimonials, through: :requisitions
 
-  #Scopes
+  # Scopes
   scope :done_requisitions, -> { requisitions.where(status: 'paid') }
 
-  #Validation
+  # Validation
   validates :first_name, presence: true
   validates :last_name, presence: true
 
@@ -28,6 +28,6 @@ class Barber < ApplicationRecord
     shifts_col.each do |shift|
       output[shift.time.to_sym] = shift.is_free
     end
-    return output
+		output
   end
 end

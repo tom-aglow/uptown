@@ -16,13 +16,13 @@ class Api::ClientsController < ApplicationController
       booked_at: activity.eventable.shift.date,
       date: activity.created_at
     }
-	end
+  end
 
-	def action_testimonial(activity)
-		{
-			name: activity.client.full_name,
-			action: 'testimonial',
-			date: activity.created_at
-		}
-	end
+  def action_testimonial(activity)
+    {
+      name: activity.client.full_name,
+      action: 'testimonial',
+      date: activity.created_at
+    }
+  end
 end
