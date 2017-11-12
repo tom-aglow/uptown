@@ -6,15 +6,17 @@
   "name": "uptown",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^3.0.1",
-    "vue": "^2.4.2",
-    "vue-loader": "^13.0.4",
-    "vue-template-compiler": "^2.4.2",
+    "@rails/webpacker": "^3.0.2",
     "axios": "^0.16.2",
-    "vue-router": "^2.7.0",
-		"moment": "^2.18.1"
-	},
+    "chart.js": "^2.7.0",
+    "moment": "^2.19.1",
+    "vue": "^2.5.2",
+    "vue-chartjs": "^3.0.0",
+    "vue-loader": "^13.3.0",
+    "vue-router": "^2.8.1",
+    "vue-template-compiler": "^2.5.2"
+  },
   "devDependencies": {
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^2.9.3"
   }
 }

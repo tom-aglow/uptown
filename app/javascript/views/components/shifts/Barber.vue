@@ -1,7 +1,9 @@
 <template>
-	<select class="custom-select" v-model="id" @change="update">
-		<option v-for="barber in barbers" v-text="barber.first_name" :value="barber.id" :key="barber.id"></option>
-	</select>
+	<div class="sidebar">
+		<div class="avatar" v-for="barber in barbers" :key="barber.id" :class="{active: id === barber.id}" @click="update(barber.id)">
+			<img :src="'/assets/barbers/' + barber.avatar">
+		</div>
+	</div>
 </template>
 
 <script>
@@ -19,7 +21,8 @@
 		},
 
 		methods: {
-			update() {
+			update(id) {
+				this.id = id;
 				this.$emit('update', this.id);
 			}
 		}

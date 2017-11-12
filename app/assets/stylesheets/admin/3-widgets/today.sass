@@ -1,9 +1,12 @@
 .w-today
-  width: 450px
+  width: 470px
   display: inline-block
 
   @include block()
   text-align: center
+  border-color: $color-teal
+  background-color: lighten($color-light-teal, 10%)
+  color: $color-teal
 
   .table
     font-size: 0.825rem
@@ -17,10 +20,18 @@
 
     .time
       padding: 5px 0
+      text-align: left
 
-    .cell
-      cursor: pointer
+    .avatar
+      width: 65px
+      height: 100px
+      overflow: hidden
 
-      &.disabled
-        cursor: not-allowed
-        pointer-events: none
+      img
+        object-fit: cover
+        width: 140%
+        margin-top: -5px
+        margin-left: -10px
+
+    .names
+      margin-bottom: 10px

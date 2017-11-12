@@ -1,8 +1,45 @@
+.w-schedule-container
+  height: 580px
+  display: inline-flex
+  background-color: lighten($color-light-teal, 10%)
+  color: $color-teal
+  border: 1px solid $color-teal
+  border-radius: 5px
+  overflow: hidden
+  margin-top: 20px
+
+  .sidebar
+    width: 65px
+    height: 100%
+
+    .avatar
+      height: 20%
+      overflow: hidden
+      cursor: pointer
+
+      img
+        object-fit: cover
+        width: 140%
+        margin-top: -5px
+        margin-left: -10px
+
+      opacity: 0.5
+
+      &.active
+        opacity: 1
+
 .w-schedule
   text-align: center
+  margin: 0
+  border: none
+
   .custom-select
-    padding: 0 10px
+    padding: 2px 10px
+    padding-right: 35px
     height: auto
+    border-color: $color-teal
+    margin-bottom: 5px
+    margin-left: 20px
 
   .table
     font-size: 0.825rem

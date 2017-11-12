@@ -10,11 +10,11 @@
 		</td>
 		<td class="actions">
 			<div class="form-group" v-if="editing">
-				<div class="btn btn-xs btn-primary" @click="update">Save</div>
-				<div class="btn btn-xs btn-secondary" @click="editing = false">Cancel</div>
+				<div class="btn btn-xs btn-success" @click="update">Save</div>
+				<div class="btn btn-xs btn-link" @click="editing = false">Cancel</div>
 			</div>
 			<div class="form-group" v-else="editing">
-				<button class="btn btn-warning btn-xs" @click="editing = true">Edit</button>
+				<button class="btn btn-info btn-xs" @click="editing = true">Edit</button>
 				<button class="btn btn-danger btn-xs" @click="destroy">Delete</button>
 			</div>
 		</td>

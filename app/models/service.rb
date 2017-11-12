@@ -4,4 +4,8 @@ class Service < ApplicationRecord
   validates :name, presence: true
   validates :price, presence: true
 
+  # Additional properties
+  def popularity
+    requisitions.where(status: %w[paid booked]).count
+  end
 end

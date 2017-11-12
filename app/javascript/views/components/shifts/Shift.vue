@@ -34,16 +34,16 @@
 				//	add css classes according shift availability
 				let cellStyle = [];
 				if (this.shift.hasOwnProperty('id') && this.shift.id !== '') {
-					cellStyle = (this.shift.is_free) ? ['bg-success'] : ['bg-danger', 'disabled'];
+					cellStyle = (this.shift.is_free) ? ['cell-free'] : ['cell-busy', 'disabled'];
 				} else {
-					cellStyle = ['bg-secondary'];
+					cellStyle = ['cell-default'];
 				}
 
 				this.cssClass.push.apply(this.cssClass, cellStyle);
 			},
 
 			change() {
-				if(this.cssClass.indexOf('bg-secondary') > 0) {
+				if(this.cssClass.indexOf('cell-default') > 0) {
 					//	click event on available time spot -> create new shift for the barber
 
 					this.shift.submit('post', '/api/shifts', 'shift')
@@ -53,7 +53,7 @@
 						})
 						.catch(() => flash.apply(null, this.shift.errors.toArray()));
 
-				} else if(this.cssClass.indexOf('bg-success') > 0) {
+				} else if(this.cssClass.indexOf('cell-free') > 0) {
 					//	click event on barber's shift spot -> delete the shift
 
 					this.shift.submit('delete', '/api/shifts/' + this.shift.id, 'shift')

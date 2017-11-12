@@ -1,14 +1,15 @@
+@import "1-base/colors";
 
-//$theme-colors: (
-//        primary: #2C6FAE,
-//        secondary: #9B9B9B,
-//        success: #52AF52,
-//        info: #50B8D9,
-//        warning: #EEA345,
-//        danger: #D44946,
-//        light: #b7b7b7,
-//        dark: #2a2a2a
-//);
+$theme-colors: (
+        primary: $color-blue,
+        secondary: $color-grey,
+        success: $color-green,
+        info: $color-teal,
+        warning: $color-yellow,
+        danger: $color-red,
+        light: $color-light-grey,
+        dark: $color-dark-grey
+);
 
 @import "bootstrap";
 @import "font-awesome-sprockets";
@@ -22,11 +23,15 @@
 @import "2-elements/buttons";
 @import "2-elements/flash";
 @import "2-elements/date-input";
+@import "2-elements/table-schedule";
 
 @import "3-widgets/today";
+@import "3-widgets/booking-trend";
+@import "3-widgets/activities";
 
 @import "4-views/services";
 @import "4-views/schedule";
+@import "4-views/dashboard";
 
 #app {
   text-align: center;

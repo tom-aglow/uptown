@@ -1,16 +1,32 @@
 <template>
 	<div>
-		<div class="block w-schedule">
-			<h4>Set a schedule</h4>
-			<date-picker class="date-box" v-once="" @update-date="updateDate" :date="date"></date-picker>
+		<div class="w-schedule-container">
 			<barber @update="updateBarberID"></barber>
-			<div class="table">
-				<div>
-					<div class="cell-header"></div>
-					<div class="cell-header"></div>
-					<div v-for="time in times" class="cell-side">{{ time | format_AMPM }}</div>
+			<div class="block w-schedule">
+				<h4>Set a schedule</h4>
+				<date-picker class="date-box" @update-date="updateDate" :date="date" :data-id="'schedule'"></date-picker>
+				<div class="table">
+					<div>
+						<div class="cell-header"></div>
+						<div class="cell-header"></div>
+						<div v-for="time in times" class="cell-side">{{ time | format_AMPM }}</div>
+					</div>
+					<shift-day v-for="day in weekDates" :data="day" :key="day | format_MMDD"></shift-day>
 				</div>
-				<shift-day v-for="day in weekDates" :data="day" :key="day | format_MMDD"></shift-day>
+				<div class="legend">
+					<div class="legend-row">
+						<div class="cell-sample cell-default"></div>
+						<div> - off</div>
+					</div>
+					<div class="legend-row">
+						<div class="cell-sample cell-free"></div>
+						<div> - available</div>
+					</div>
+					<div class="legend-row">
+						<div class="cell-sample cell-busy"></div>
+						<div> - booked</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
