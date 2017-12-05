@@ -1,24 +1,7 @@
-# README
+## Uptown Barbers
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Website for the local barbershop located at Mount Pleasant district in Vancouver BC.
+* mobile responsive landing page
+* custom reservation system - UI form, booking tracking, confirmation emails, reminding emails
+* custom content managment system is implemented using [Vue.js](https://github.com/vuejs/vue) framework // credentials: `username - admin | password - qwerty | route - /admin`
+* data visualisation with [Chart.js](https://github.com/chartjs/Chart.js) library
