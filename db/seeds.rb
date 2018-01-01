@@ -87,7 +87,7 @@ barbers_num.times do |i|
 
   # --- SHIFTS ---
 
-  20.times do |j|
+  100.times do |j|
     cur_date = (j).days.from_now
     cur_shift = shifts[rand(shifts.length)]
 
